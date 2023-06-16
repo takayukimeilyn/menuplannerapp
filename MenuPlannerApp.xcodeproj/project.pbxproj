@@ -7,15 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B0EBC052A23804A00B4CC63 /* ShoppingInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */; };
+		4B0EBC072A2381C700B4CC63 /* ShoppingEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */; };
 		4B24EDF72A2103F200ABB865 /* MenuPlannerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EDF62A2103F200ABB865 /* MenuPlannerAppApp.swift */; };
 		4B24EDF92A2103F200ABB865 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EDF82A2103F200ABB865 /* ContentView.swift */; };
 		4B24EDFB2A2103F400ABB865 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B24EDFA2A2103F400ABB865 /* Assets.xcassets */; };
 		4B24EDFE2A2103F400ABB865 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B24EDFD2A2103F400ABB865 /* Preview Assets.xcassets */; };
 		4B24EE002A2103F400ABB865 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EDFF2A2103F400ABB865 /* Persistence.swift */; };
 		4B24EE032A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE012A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld */; };
+		4B24EE0A2A21043C00ABB865 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE092A21043C00ABB865 /* InputView.swift */; };
+		4B24EE0C2A21A04E00ABB865 /* MyMenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE0B2A21A04E00ABB865 /* MyMenuListView.swift */; };
+		4B24EE0E2A21A07D00ABB865 /* MyMenuInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE0D2A21A07D00ABB865 /* MyMenuInputView.swift */; };
+		4B24EE122A21A0BB00ABB865 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE112A21A0BB00ABB865 /* ShoppingListView.swift */; };
+		4B24EE162A21A4AD00ABB865 /* MenuPlanList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE152A21A4AD00ABB865 /* MenuPlanList.swift */; };
+		4B24EE182A228A9700ABB865 /* MyMenuEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */; };
+		4B24EE1A2A22981300ABB865 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE192A22981300ABB865 /* EditView.swift */; };
+		4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingInputView.swift; sourceTree = "<group>"; };
+		4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingEditView.swift; sourceTree = "<group>"; };
 		4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuPlannerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B24EDF62A2103F200ABB865 /* MenuPlannerAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlannerAppApp.swift; sourceTree = "<group>"; };
 		4B24EDF82A2103F200ABB865 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +35,15 @@
 		4B24EDFD2A2103F400ABB865 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4B24EDFF2A2103F400ABB865 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		4B24EE022A2103F400ABB865 /* MenuPlannerApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MenuPlannerApp.xcdatamodel; sourceTree = "<group>"; };
+		4B24EE092A21043C00ABB865 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		4B24EE0B2A21A04E00ABB865 /* MyMenuListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuListView.swift; sourceTree = "<group>"; };
+		4B24EE0D2A21A07D00ABB865 /* MyMenuInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuInputView.swift; sourceTree = "<group>"; };
+		4B24EE112A21A0BB00ABB865 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
+		4B24EE152A21A4AD00ABB865 /* MenuPlanList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlanList.swift; sourceTree = "<group>"; };
+		4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuEditView.swift; sourceTree = "<group>"; };
+		4B24EE192A22981300ABB865 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalFood.swift; sourceTree = "<group>"; };
+		4BB0A8C72A3401B80089729F /* MenuPlannerApp 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MenuPlannerApp 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +78,16 @@
 			children = (
 				4B24EDF62A2103F200ABB865 /* MenuPlannerAppApp.swift */,
 				4B24EDF82A2103F200ABB865 /* ContentView.swift */,
+				4B24EE152A21A4AD00ABB865 /* MenuPlanList.swift */,
+				4B24EE092A21043C00ABB865 /* InputView.swift */,
+				4B24EE192A22981300ABB865 /* EditView.swift */,
+				4B24EE0B2A21A04E00ABB865 /* MyMenuListView.swift */,
+				4B24EE0D2A21A07D00ABB865 /* MyMenuInputView.swift */,
+				4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */,
+				4B24EE112A21A0BB00ABB865 /* ShoppingListView.swift */,
+				4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */,
+				4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */,
+				4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */,
 				4B24EDFA2A2103F400ABB865 /* Assets.xcassets */,
 				4B24EDFF2A2103F400ABB865 /* Persistence.swift */,
 				4B24EE012A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld */,
@@ -89,6 +120,8 @@
 			dependencies = (
 			);
 			name = MenuPlannerApp;
+			packageProductDependencies = (
+			);
 			productName = MenuPlannerApp;
 			productReference = 4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +150,9 @@
 				Base,
 			);
 			mainGroup = 4B24EDEA2A2103F200ABB865;
+			packageReferences = (
+				4B0EBC012A23797300B4CC63 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = 4B24EDF42A2103F200ABB865 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -143,10 +179,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B24EE122A21A0BB00ABB865 /* ShoppingListView.swift in Sources */,
+				4B0EBC052A23804A00B4CC63 /* ShoppingInputView.swift in Sources */,
+				4B24EE162A21A4AD00ABB865 /* MenuPlanList.swift in Sources */,
+				4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */,
+				4B24EE1A2A22981300ABB865 /* EditView.swift in Sources */,
 				4B24EE002A2103F400ABB865 /* Persistence.swift in Sources */,
+				4B24EE182A228A9700ABB865 /* MyMenuEditView.swift in Sources */,
 				4B24EE032A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld in Sources */,
+				4B24EE0A2A21043C00ABB865 /* InputView.swift in Sources */,
 				4B24EDF92A2103F200ABB865 /* ContentView.swift in Sources */,
+				4B24EE0E2A21A07D00ABB865 /* MyMenuInputView.swift in Sources */,
 				4B24EDF72A2103F200ABB865 /* MenuPlannerAppApp.swift in Sources */,
+				4B24EE0C2A21A04E00ABB865 /* MyMenuListView.swift in Sources */,
+				4B0EBC072A2381C700B4CC63 /* ShoppingEditView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +319,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -287,12 +333,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "takayuki-hashimoto.MenuPlannerApp";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -302,7 +351,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -316,12 +365,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "takayuki-hashimoto.MenuPlannerApp";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -348,10 +400,22 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		4B0EBC012A23797300B4CC63 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCVersionGroup section */
 		4B24EE012A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4BB0A8C72A3401B80089729F /* MenuPlannerApp 2.xcdatamodel */,
 				4B24EE022A2103F400ABB865 /* MenuPlannerApp.xcdatamodel */,
 			);
 			currentVersion = 4B24EE022A2103F400ABB865 /* MenuPlannerApp.xcdatamodel */;
