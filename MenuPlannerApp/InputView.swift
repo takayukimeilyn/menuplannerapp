@@ -17,10 +17,12 @@ struct InputView: View {
     @State private var mealTagIcon: String = "questionmark"
     @State private var selectedMyMenu: MyMenu? // New property
 
+    var existingMenu: MyMenu? // <- Add this property
     
-    init(date: Date, mealsByDate: MealsByDate) {
+    init(date: Date, mealsByDate: MealsByDate, existingMenu: MyMenu? = nil) { // <- Modify the init method
         self._date = State(initialValue: date)
         self.mealsByDate = mealsByDate
+        self.existingMenu = existingMenu // <- Set the existingMenu
     }
     
     @FetchRequest(
@@ -59,11 +61,11 @@ struct InputView: View {
                             Text($0)
                         }
                     }
-                    Picker("種類", selection: $mealTag){
-                        ForEach(mealTags, id: \.self) {
-                            Text($0)
-                        }
-                    }
+//                    Picker("種類", selection: $mealTag){
+//                        ForEach(mealTags, id: \.self) {
+//                            Text($0)
+//                        }
+//                    }
                 }
                 
                 Section(header: HStack {
@@ -85,16 +87,16 @@ struct InputView: View {
                     if let selectedMenu = selectedMyMenu {
                         VStack {
                             Text(selectedMenu.name ?? "")
-                                .foregroundColor(.blue)
-                            if let referenceURL = selectedMenu.referenceURL {
-                                Link(destination: referenceURL) {
-                                    Text(referenceURL.absoluteString)
-                                }
-                            }
                         }
+                        Text(selectedMenu.mealTag ?? "主菜")
                     } else {
                         HStack {
                             TextField("メニューを入力してください", text: $menuName)
+                        }
+                        Picker("種類", selection: $mealTag){
+                            ForEach(mealTags, id: \.self) {
+                                Text($0)
+                            }
                         }
                     }
                 }
@@ -104,6 +106,11 @@ struct InputView: View {
             }) {
                 Text("保存")
             })
+        }
+        .onAppear {
+            if let existingMenu = existingMenu {
+                selectedMyMenu = existingMenu
+            }
         }
     }
     
@@ -115,17 +122,20 @@ struct InputView: View {
 
         if let selectedMenu = selectedMyMenu {
             newMeal.menuName = selectedMenu.name
+            newMeal.mealTag = selectedMenu.mealTag
             newMeal.menu = selectedMenu
         } else if !menuName.isEmpty {
             let existingMenu = myMenus.first(where: { $0.name == menuName })
             if let existingMenu = existingMenu {
                 // Use the existing MyMenu
                 newMeal.menuName = existingMenu.name
+                newMeal.mealTag = existingMenu.mealTag
                 newMeal.menu = existingMenu
             } else {
                 // Create new MyMenu
                 let newMyMenu = MyMenu(context: viewContext)
                 newMyMenu.name = menuName
+                newMyMenu.mealTag = mealTag
                 newMeal.menu = newMyMenu
                 newMeal.menuName = menuName
             }

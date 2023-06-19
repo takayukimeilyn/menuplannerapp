@@ -23,9 +23,12 @@
 		4B24EE182A228A9700ABB865 /* MyMenuEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */; };
 		4B24EE1A2A22981300ABB865 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE192A22981300ABB865 /* EditView.swift */; };
 		4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */; };
+		A36A99BFBA85AF89C055F68D /* Pods_MenuPlannerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B7390C32D454E7D2D426C4A /* Pods-MenuPlannerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuPlannerApp.debug.xcconfig"; path = "Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		40DA8E9A55D7871349A96AA8 /* Pods-MenuPlannerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuPlannerApp.release.xcconfig"; path = "Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp.release.xcconfig"; sourceTree = "<group>"; };
 		4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingInputView.swift; sourceTree = "<group>"; };
 		4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingEditView.swift; sourceTree = "<group>"; };
 		4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuPlannerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,8 +45,10 @@
 		4B24EE152A21A4AD00ABB865 /* MenuPlanList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlanList.swift; sourceTree = "<group>"; };
 		4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuEditView.swift; sourceTree = "<group>"; };
 		4B24EE192A22981300ABB865 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		4B51C1EB2A3FDBFA00C6EE14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalFood.swift; sourceTree = "<group>"; };
 		4BB0A8C72A3401B80089729F /* MenuPlannerApp 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MenuPlannerApp 2.xcdatamodel"; sourceTree = "<group>"; };
+		AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuPlannerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,17 +56,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36A99BFBA85AF89C055F68D /* Pods_MenuPlannerApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43342D01ADC24C32B200DB34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4B24EDEA2A2103F200ABB865 = {
 			isa = PBXGroup;
 			children = (
 				4B24EDF52A2103F200ABB865 /* MenuPlannerApp */,
 				4B24EDF42A2103F200ABB865 /* Products */,
+				D82C2863DE0D432C3360F0E9 /* Pods */,
+				43342D01ADC24C32B200DB34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +92,7 @@
 		4B24EDF52A2103F200ABB865 /* MenuPlannerApp */ = {
 			isa = PBXGroup;
 			children = (
+				4B51C1EB2A3FDBFA00C6EE14 /* Info.plist */,
 				4B24EDF62A2103F200ABB865 /* MenuPlannerAppApp.swift */,
 				4B24EDF82A2103F200ABB865 /* ContentView.swift */,
 				4B24EE152A21A4AD00ABB865 /* MenuPlanList.swift */,
@@ -104,6 +121,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D82C2863DE0D432C3360F0E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1B7390C32D454E7D2D426C4A /* Pods-MenuPlannerApp.debug.xcconfig */,
+				40DA8E9A55D7871349A96AA8 /* Pods-MenuPlannerApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,17 +137,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B24EE062A2103F400ABB865 /* Build configuration list for PBXNativeTarget "MenuPlannerApp" */;
 			buildPhases = (
+				9D083E1715C73267DA19DA22 /* [CP] Check Pods Manifest.lock */,
 				4B24EDEF2A2103F200ABB865 /* Sources */,
 				4B24EDF02A2103F200ABB865 /* Frameworks */,
 				4B24EDF12A2103F200ABB865 /* Resources */,
+				DF393ACDD0E2D0FC0618AB65 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MenuPlannerApp;
-			packageProductDependencies = (
-			);
 			productName = MenuPlannerApp;
 			productReference = 4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */;
 			productType = "com.apple.product-type.application";
@@ -173,6 +199,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9D083E1715C73267DA19DA22 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MenuPlannerApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF393ACDD0E2D0FC0618AB65 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4B24EDEF2A2103F200ABB865 /* Sources */ = {
@@ -315,15 +383,18 @@
 		};
 		4B24EE072A2103F400ABB865 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B7390C32D454E7D2D426C4A /* Pods-MenuPlannerApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MenuPlannerApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "おうちごはん";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -333,7 +404,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -341,21 +412,24 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		4B24EE082A2103F400ABB865 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40DA8E9A55D7871349A96AA8 /* Pods-MenuPlannerApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MenuPlannerApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "おうちごはん";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -365,7 +439,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -373,7 +447,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

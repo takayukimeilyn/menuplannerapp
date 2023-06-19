@@ -8,6 +8,7 @@ struct MyMenuEditView: View {
     @ObservedObject var menu: MyMenu
 
     @State private var menuName = ""
+    @State private var mealTag = ""
     @State private var ingredients: [Ingredient] = []
     @State private var referenceURL = ""
     @State private var memo = ""
@@ -16,6 +17,9 @@ struct MyMenuEditView: View {
     @State private var rating: Int
     @State private var imageData: Data?
     
+    @State private var showingInputView = false // <- Add this state variable
+
+    
     init(menu: MyMenu, rating: Int) {
         self.menu = menu
         self._rating = State(initialValue: rating)
@@ -23,6 +27,8 @@ struct MyMenuEditView: View {
         self._ingredients = State(initialValue: (menu.ingredients?.allObjects as? [Ingredient]) ?? [])
 
     }
+    
+    var mealTags = ["主菜", "副菜", "主食", "汁物", "デザート", "その他"]
 
     var body: some View {
         Form {
@@ -35,6 +41,14 @@ struct MyMenuEditView: View {
                             .frame(width: 100, height: 100)
                     }
                     TextField("メニュー名", text: $menuName)
+                }
+            }
+            
+            Section(header: Text("種類")) {
+                Picker("種類", selection: $mealTag){
+                    ForEach(mealTags, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
             
@@ -108,36 +122,50 @@ struct MyMenuEditView: View {
         }
         .navigationBarTitle(Text(menuName), displayMode: .inline)
         .navigationBarItems(trailing:
-            Button(action: {
-                menu.name = menuName
-                menu.rating = Int16(rating)
-                if isValidURL(referenceURL) {
-                    menu.referenceURL = URL(string: referenceURL)
-                } else {
-                    alertMessage = "Invalid URL"
-                    showingAlert = true
-                    return
+            HStack{
+                Button(action: {
+                    showingInputView = true // <- Open InputView as a sheet
+                }) {
+                    Text("予定追加")
                 }
-                menu.memo = memo
-                let filteredIngredients = ingredients.filter { ingredient in
-                    return !(ingredient.name ?? "").isEmpty
+                .sheet(isPresented: $showingInputView) {
+                    // Pass the menu object to InputView
+                    InputView(date: Date(), mealsByDate: MealsByDate(), existingMenu: menu)
+                        .environment(\.managedObjectContext, self.viewContext)
                 }
-                menu.ingredients = NSSet(array: filteredIngredients)
-
-                
-                do {
-                    try viewContext.save()
-                    presentationMode.wrappedValue.dismiss()
-                } catch {
-                    alertMessage = "Failed to save MyMenu: \(error)"
-                    showingAlert = true
+                Button(action: {
+                    menu.name = menuName
+                    menu.mealTag = mealTag
+                    menu.rating = Int16(rating)
+                    if isValidURL(referenceURL) {
+                        menu.referenceURL = URL(string: referenceURL)
+                    } else {
+                        alertMessage = "Invalid URL"
+                        showingAlert = true
+                        return
+                    }
+                    menu.memo = memo
+                    let filteredIngredients = ingredients.filter { ingredient in
+                        return !(ingredient.name ?? "").isEmpty
+                    }
+                    menu.ingredients = NSSet(array: filteredIngredients)
+                    
+                    
+                    do {
+                        try viewContext.save()
+                        presentationMode.wrappedValue.dismiss()
+                    } catch {
+                        alertMessage = "Failed to save MyMenu: \(error)"
+                        showingAlert = true
+                    }
+                }) {
+                    Text("更新")
                 }
-            }) {
-                Text("更新")
             }
         )
         .onAppear {
             menuName = menu.name ?? ""
+            mealTag = menu.mealTag ?? ""
             referenceURL = menu.referenceURL?.absoluteString ?? ""
             referenceURL = menu.referenceURL?.absoluteString ?? ""
             memo = menu.memo ?? ""

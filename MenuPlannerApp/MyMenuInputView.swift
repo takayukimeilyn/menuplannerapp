@@ -7,6 +7,7 @@ struct MyMenuInputView: View {
 
     @State private var menuName = ""
     @State private var referenceURL = ""
+    @State private var mealTag = "主菜"
     @State private var memo = ""
     @State private var showingImagePicker = false
     @State private var image: UIImage?
@@ -18,10 +19,20 @@ struct MyMenuInputView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     
+    var mealTags = ["主菜", "副菜", "主食", "汁物", "デザート", "その他"]
+    
     var body: some View {
         Form {
             Section(header: Text("メニュー名")) {
                 TextField("メニュー名", text: $menuName)
+            }
+            
+            Section(header: Text("種類")){
+                Picker("種類", selection: $mealTag){
+                    ForEach(mealTags, id: \.self) {
+                        Text($0)
+                    }
+                }
             }
             
             Section(header: Text("参考レシピサイト")) {
@@ -95,6 +106,7 @@ struct MyMenuInputView: View {
                 let newMenu = MyMenu(context: viewContext)
                 newMenu.referenceURL = URL(string: referenceURL)
                 newMenu.name = menuName
+                newMenu.mealTag = mealTag
                 newMenu.rating = Int16(rating)
                 newMenu.memo = memo
                 if let inputImage = image {

@@ -1,5 +1,7 @@
 import SwiftUI
 import CoreData
+import GoogleMobileAds
+
 
 struct ShoppingListView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -8,36 +10,46 @@ struct ShoppingListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Shopping.order, ascending: true)]
     ) private var shoppings: FetchedResults<Shopping>
     
+    init() {
+        // Start Google Mobile Ads
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+    }
+
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(shoppings) { shopping in
-                    NavigationLink(destination: ShoppingEditView(shopping: shopping)) {
-                        HStack {
-                            // Checkbox representation
-                            Image(systemName: shopping.isChecked ? "checkmark.square" : "square")
-                                .foregroundColor(.blue)
-                                .onTapGesture {
-                                    shopping.isChecked.toggle()
-                                    do {
-                                        try viewContext.save()
-                                    } catch {
-                                        print("Failed to update Shopping Item: \(error)")
+            VStack{
+                List {
+                    ForEach(shoppings) { shopping in
+                        NavigationLink(destination: ShoppingEditView(shopping: shopping)) {
+                            HStack {
+                                // Checkbox representation
+                                Image(systemName: shopping.isChecked ? "checkmark.square" : "square")
+                                    .foregroundColor(.blue)
+                                    .onTapGesture {
+                                        shopping.isChecked.toggle()
+                                        do {
+                                            try viewContext.save()
+                                        } catch {
+                                            print("Failed to update Shopping Item: \(error)")
+                                        }
                                     }
-                                }
-                            // Shopping name with strikethrough when checked
-                            Text(shopping.name ?? "")
-                                .strikethrough(shopping.isChecked, color: .gray)
-                                .foregroundColor(shopping.isChecked ? .gray : .primary)
-                            Spacer()
-                            Text("\(shopping.quantity) \(shopping.unit ?? "")  ")
+                                // Shopping name with strikethrough when checked
+                                Text(shopping.name ?? "")
+                                    .strikethrough(shopping.isChecked, color: .gray)
+                                    .foregroundColor(shopping.isChecked ? .gray : .primary)
+                                Spacer()
+                                Text("\(shopping.quantity) \(shopping.unit ?? "")  ")
+                            }
                         }
                     }
+                    .onDelete(perform: deleteShopping)
+                    .onMove(perform: moveShopping) // Handles drag and drop feature
                 }
-                .onDelete(perform: deleteShopping)
-                .onMove(perform: moveShopping) // Handles drag and drop feature
+                //            .navigationBarTitle("Shopping List")
+                AdBannerView(adUnitID: "ca-app-pub-9878109464323588/1202416085") // Replace with your ad unit ID
+                    .frame(height: 50)
             }
-//            .navigationBarTitle("Shopping List")
             .navigationBarItems(
                 leading: Button(action: {
                             deleteAllCompleted()
@@ -99,3 +111,19 @@ struct ShoppingListView: View {
         }
     }
 }
+
+// UIViewRepresentable wrapper for AdMob banner view
+struct AdBannerView: UIViewRepresentable {
+    let adUnitID: String
+
+    func makeUIView(context: Context) -> GADBannerView {
+        let bannerView = GADBannerView(adSize: GADAdSizeFromCGSize(CGSize(width: 320, height: 50))) // Set your desired banner ad size
+        bannerView.adUnitID = adUnitID
+        bannerView.rootViewController = UIApplication.shared.windows.first?.rootViewController
+        bannerView.load(GADRequest())
+        return bannerView
+    }
+    
+    func updateUIView(_ uiView: GADBannerView, context: Context) {}
+}
+
