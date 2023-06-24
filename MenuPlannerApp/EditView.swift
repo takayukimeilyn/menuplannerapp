@@ -83,11 +83,12 @@ struct EditView: View {
                     ChoseMyMenuListView(isPresented: $isShowingMyMenuList, selectedMenu: $selectedMenu)
                 }
             }) {
-                TextField("メニューを入力してください", text: $menuName)
-                if let url = self.selectedMenuURL {
-                    HStack {
-                        Spacer()
-                        Link("レシピサイト", destination: url)
+                HStack{
+                    TextField("メニューを入力してください", text: $menuName)
+                    if let url = self.selectedMenuURL {
+                        Link(destination: url) {
+                            Image(systemName: "paperplane")
+                        }
                     }
                 }
 //                TextField("メニューを入力してください", text: $selectedMenu?.name ?? "")

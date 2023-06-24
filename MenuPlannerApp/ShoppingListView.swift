@@ -10,10 +10,10 @@ struct ShoppingListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Shopping.order, ascending: true)]
     ) private var shoppings: FetchedResults<Shopping>
     
-    init() {
-        // Start Google Mobile Ads
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
-    }
+//    init() {
+//        // Start Google Mobile Ads
+//        GADMobileAds.sharedInstance().start(completionHandler: nil)
+//    }
 
     
     var body: some View {
@@ -47,8 +47,8 @@ struct ShoppingListView: View {
                     .onMove(perform: moveShopping) // Handles drag and drop feature
                 }
                 //            .navigationBarTitle("Shopping List")
-                AdBannerView(adUnitID: "ca-app-pub-9878109464323588/1202416085") // Replace with your ad unit ID
-                    .frame(height: 50)
+//                AdBannerView(adUnitID: "ca-app-pub-9878109464323588/1239258304") // Replace with your ad unit ID
+//                    .frame(height: 50)
             }
             .navigationBarItems(
                 leading: Button(action: {
@@ -112,18 +112,5 @@ struct ShoppingListView: View {
     }
 }
 
-// UIViewRepresentable wrapper for AdMob banner view
-struct AdBannerView: UIViewRepresentable {
-    let adUnitID: String
 
-    func makeUIView(context: Context) -> GADBannerView {
-        let bannerView = GADBannerView(adSize: GADAdSizeFromCGSize(CGSize(width: 320, height: 50))) // Set your desired banner ad size
-        bannerView.adUnitID = adUnitID
-        bannerView.rootViewController = UIApplication.shared.windows.first?.rootViewController
-        bannerView.load(GADRequest())
-        return bannerView
-    }
-    
-    func updateUIView(_ uiView: GADBannerView, context: Context) {}
-}
 

@@ -8,7 +8,7 @@ struct InputView: View {
     @State private var mealTime = "朝食"
     @State private var mealTag: String = "主菜"
     @State private var menuName: String = ""
-    @State private var menuURL: URL?
+    @State private var referenceURL: String = ""
     @State private var isCreatingNewMenu = false
     @State private var isInputtingMenu = false
     @Environment(\.presentationMode) var presentationMode
@@ -19,8 +19,8 @@ struct InputView: View {
 
     var existingMenu: MyMenu? // <- Add this property
     
-    init(date: Date, mealsByDate: MealsByDate, existingMenu: MyMenu? = nil) { // <- Modify the init method
-        self._date = State(initialValue: date)
+    init(date: Date? = nil, mealsByDate: MealsByDate, existingMenu: MyMenu? = nil) { // <- Modify the init method
+        self._date = State(initialValue: date ?? Date()) // オプショナル型のdateを使用
         self.mealsByDate = mealsByDate
         self.existingMenu = existingMenu // <- Set the existingMenu
     }
@@ -29,11 +29,6 @@ struct InputView: View {
         entity: MyMenu.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \MyMenu.name, ascending: true)]
     ) private var myMenus: FetchedResults<MyMenu>
-    
-    init(date: Date? = nil, mealsByDate: MealsByDate) {
-        self._date = State(initialValue: date ?? Date()) // オプショナル型のdateを使用
-        self.mealsByDate = mealsByDate
-    }
     
     @FetchRequest(
         entity: Meal.entity(),
@@ -61,11 +56,6 @@ struct InputView: View {
                             Text($0)
                         }
                     }
-//                    Picker("種類", selection: $mealTag){
-//                        ForEach(mealTags, id: \.self) {
-//                            Text($0)
-//                        }
-//                    }
                 }
                 
                 Section(header: HStack {
@@ -100,6 +90,9 @@ struct InputView: View {
                         }
                     }
                 }
+                Section(header: Text("参考レシピサイト")) {
+                    TextField("URL", text: $referenceURL)
+                }
             }
             .navigationBarItems(trailing: Button(action: {
                 saveMeal()
@@ -110,6 +103,7 @@ struct InputView: View {
         .onAppear {
             if let existingMenu = existingMenu {
                 selectedMyMenu = existingMenu
+                referenceURL = existingMenu.referenceURL?.absoluteString ?? "" // Set referenceURL if there is existingMenu
             }
         }
     }
@@ -124,6 +118,7 @@ struct InputView: View {
             newMeal.menuName = selectedMenu.name
             newMeal.mealTag = selectedMenu.mealTag
             newMeal.menu = selectedMenu
+            newMeal.menu?.referenceURL = selectedMenu.referenceURL
         } else if !menuName.isEmpty {
             let existingMenu = myMenus.first(where: { $0.name == menuName })
             if let existingMenu = existingMenu {
@@ -138,6 +133,11 @@ struct InputView: View {
                 newMyMenu.mealTag = mealTag
                 newMeal.menu = newMyMenu
                 newMeal.menuName = menuName
+                
+                // Convert the referenceURL string to a URL object and assign it
+                if let url = URL(string: referenceURL) {
+                    newMyMenu.referenceURL = url
+                }
             }
         }
 

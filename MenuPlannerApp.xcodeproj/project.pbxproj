@@ -22,6 +22,8 @@
 		4B24EE162A21A4AD00ABB865 /* MenuPlanList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE152A21A4AD00ABB865 /* MenuPlanList.swift */; };
 		4B24EE182A228A9700ABB865 /* MyMenuEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */; };
 		4B24EE1A2A22981300ABB865 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE192A22981300ABB865 /* EditView.swift */; };
+		4B51C1ED2A4322CC00C6EE14 /* SwiftSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51C1EC2A4322CC00C6EE14 /* SwiftSoup.swift */; };
+		4B51C1F02A43238B00C6EE14 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 4B51C1EF2A43238B00C6EE14 /* SwiftSoup */; };
 		4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */; };
 		A36A99BFBA85AF89C055F68D /* Pods_MenuPlannerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */; };
 /* End PBXBuildFile section */
@@ -46,6 +48,7 @@
 		4B24EE172A228A9700ABB865 /* MyMenuEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuEditView.swift; sourceTree = "<group>"; };
 		4B24EE192A22981300ABB865 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		4B51C1EB2A3FDBFA00C6EE14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B51C1EC2A4322CC00C6EE14 /* SwiftSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSoup.swift; sourceTree = "<group>"; };
 		4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalFood.swift; sourceTree = "<group>"; };
 		4BB0A8C72A3401B80089729F /* MenuPlannerApp 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MenuPlannerApp 2.xcdatamodel"; sourceTree = "<group>"; };
 		AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuPlannerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A36A99BFBA85AF89C055F68D /* Pods_MenuPlannerApp.framework in Frameworks */,
+				4B51C1F02A43238B00C6EE14 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +109,7 @@
 				4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */,
 				4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */,
 				4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */,
+				4B51C1EC2A4322CC00C6EE14 /* SwiftSoup.swift */,
 				4B24EDFA2A2103F400ABB865 /* Assets.xcassets */,
 				4B24EDFF2A2103F400ABB865 /* Persistence.swift */,
 				4B24EE012A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld */,
@@ -148,6 +153,9 @@
 			dependencies = (
 			);
 			name = MenuPlannerApp;
+			packageProductDependencies = (
+				4B51C1EF2A43238B00C6EE14 /* SwiftSoup */,
+			);
 			productName = MenuPlannerApp;
 			productReference = 4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +186,7 @@
 			mainGroup = 4B24EDEA2A2103F200ABB865;
 			packageReferences = (
 				4B0EBC012A23797300B4CC63 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				4B51C1EE2A43238B00C6EE14 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 4B24EDF42A2103F200ABB865 /* Products */;
 			projectDirPath = "";
@@ -248,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B24EE122A21A0BB00ABB865 /* ShoppingListView.swift in Sources */,
+				4B51C1ED2A4322CC00C6EE14 /* SwiftSoup.swift in Sources */,
 				4B0EBC052A23804A00B4CC63 /* ShoppingInputView.swift in Sources */,
 				4B24EE162A21A4AD00ABB865 /* MenuPlanList.swift in Sources */,
 				4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */,
@@ -388,7 +398,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -404,7 +414,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -423,7 +433,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -439,7 +449,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -483,7 +493,23 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		4B51C1EE2A43238B00C6EE14 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B51C1EF2A43238B00C6EE14 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B51C1EE2A43238B00C6EE14 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4B24EE012A2103F400ABB865 /* MenuPlannerApp.xcdatamodeld */ = {

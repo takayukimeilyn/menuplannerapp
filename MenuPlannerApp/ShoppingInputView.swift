@@ -12,37 +12,38 @@ struct ShoppingInputView: View {
 
     
     var body: some View {
-        Form {
-            
-            Section(header: Text("アイテム")) {
-                TextField("アイテム", text: $name)
-            }
-            
-            Section(header: Text("個数")) {
-                TextField("個数", value: $quantity, formatter: NumberFormatter())
-            }
-            
-            Section(header: Text("単位")) {
-                TextField("単位", text: $unit)
-            }
-            
-            Button(action: {
-                let shoppings = Shopping(context: viewContext)
-
-                shoppings.name = name
-                shoppings.quantity = Int16(quantity)
-                shoppings.unit = unit
+        NavigationView{
+            Form {
                 
-                do {
-                    try viewContext.save()
-                    presentationMode.wrappedValue.dismiss()
-
-                } catch {
-                    print("Failed to save MyMenu: \(error)")
+                Section(header: Text("アイテム")) {
+                    TextField("アイテム", text: $name)
                 }
-            }) {
-                Text("Save")
+                
+                Section(header: Text("個数")) {
+                    TextField("個数", value: $quantity, formatter: NumberFormatter())
+                }
+                
+                Section(header: Text("単位")) {
+                    TextField("単位", text: $unit)
+                }
             }
         }
+        .navigationBarItems(trailing: Button(action: {
+            let shoppings = Shopping(context: viewContext)
+
+            shoppings.name = name
+            shoppings.quantity = Int16(quantity)
+            shoppings.unit = unit
+            
+            do {
+                try viewContext.save()
+                presentationMode.wrappedValue.dismiss()
+
+            } catch {
+                print("Failed to save MyMenu: \(error)")
+            }
+        }) {
+            Text("保存")
+        })
     }
 }

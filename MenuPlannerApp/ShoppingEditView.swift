@@ -22,34 +22,35 @@ struct ShoppingEditView: View {
     }
 
     var body: some View {
-        Form {
-            Section(header: Text("アイテム")) {
-                TextField("Shopping Item", text: $name)
-            }
-            
-            Section(header: Text("個数")) {
-                TextField("Shopping Item", value: $quantity, formatter: NumberFormatter())
-            }
-            
-            Section(header: Text("単位")) {
-                TextField("単位", text: $unit)
-            }
-            
-            Button(action: {
-                shopping.name = name
-                shopping.quantity = quantity
-                shopping.unit = unit
-
-                
-                do {
-                    try viewContext.save()
-                    presentationMode.wrappedValue.dismiss()
-                } catch {
-                    print("Failed to save MyMenu: \(error)")
+        NavigationView{
+            Form {
+                Section(header: Text("アイテム")) {
+                    TextField("Shopping Item", text: $name)
                 }
-            }) {
-                Text("Save")
+                
+                Section(header: Text("個数")) {
+                    TextField("Shopping Item", value: $quantity, formatter: NumberFormatter())
+                }
+                
+                Section(header: Text("単位")) {
+                    TextField("単位", text: $unit)
+                }
             }
         }
+        .navigationBarItems(trailing: Button(action: {
+            shopping.name = name
+            shopping.quantity = quantity
+            shopping.unit = unit
+            
+            
+            do {
+                try viewContext.save()
+                presentationMode.wrappedValue.dismiss()
+            } catch {
+                print("Failed to save MyMenu: \(error)")
+            }
+        }) {
+            Text("更新")
+        })
     }
 }

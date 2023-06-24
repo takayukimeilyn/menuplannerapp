@@ -78,6 +78,7 @@ struct MenuPlanList: View {
     @StateObject private var mealsByDate = MealsByDate() // create an instance of MealsByDate
     @StateObject private var menuPlanDate = MenuPlanDate() // create an instance of MenuPlanDate
 
+
     @FetchRequest(
         entity: Meal.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Meal.date, ascending: true)]
@@ -164,7 +165,7 @@ struct MenuPlanList: View {
             }
             .navigationBarTitle("献立予定表", displayMode: .inline)
             .navigationBarItems(trailing:
-                NavigationLink(destination: InputView(mealsByDate: mealsByDate)) {
+                                    NavigationLink(destination: InputView(mealsByDate: mealsByDate)) {
                     HStack{
                         Image(systemName: "plus")
                         Text("新規追加")

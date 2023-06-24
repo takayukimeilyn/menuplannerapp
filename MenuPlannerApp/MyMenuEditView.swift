@@ -16,7 +16,6 @@ struct MyMenuEditView: View {
     @State private var alertMessage = ""
     @State private var rating: Int
     @State private var imageData: Data?
-    
     @State private var showingInputView = false // <- Add this state variable
 
     
@@ -32,7 +31,7 @@ struct MyMenuEditView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("メニュー名")) {
+            Section(header: Text("メニュー")) {
                 HStack {
                     if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
@@ -42,33 +41,31 @@ struct MyMenuEditView: View {
                     }
                     TextField("メニュー名", text: $menuName)
                 }
-            }
-            
-            Section(header: Text("種類")) {
                 Picker("種類", selection: $mealTag){
                     ForEach(mealTags, id: \.self) {
                         Text($0)
                     }
                 }
-            }
-            
-            Section(header: Text("評価")) {
                 Picker("評価", selection: $rating) {
                     ForEach(0..<6) { i in
                         Text("\(i)").tag(i)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+
             }
             
             Section(header: Text("参考レシピサイト")) {
-                TextField("URL", text: $referenceURL)
+                HStack{
+                    TextField("URL", text: $referenceURL)
+                    if let url = menu.referenceURL {
+                        Link(destination: url) {
+                            Image(systemName: "paperplane")
+                        }
+                    }
+                }
             }
-            if let url = menu.referenceURL {
-                Link("レシピサイト", destination: url)
-            }
-            
-            
+                        
             Section(header: Text("メモ")) {
                 TextField("メモ", text: $memo)
             }
@@ -80,27 +77,45 @@ struct MyMenuEditView: View {
                             get: { ingredient.name ?? "" },
                             set: { ingredient.name = $0 }
                         ))
-                        Spacer()
+                        .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity) // Give it a flexible width
+
+                        Spacer().frame(width: 20) // Fixed spacing of 20
                         TextField("数量", text: Binding(
-                            get: { String(ingredient.quantity) },
+                            get: {
+                                if floor(ingredient.quantity) == ingredient.quantity {
+                                    return String(format: "%.0f", ingredient.quantity) // 整数の場合
+                                } else {
+                                    return String(ingredient.quantity) // 小数の場合
+                                }
+                            },
                             set: { newValue in
-                                if let doubleValue = Double(newValue) {
+                                if newValue.isEmpty {
+                                    ingredient.quantity = 0
+                                } else if let doubleValue = Double(newValue) {
                                     ingredient.quantity = doubleValue
                                 }
                             }
                         ))
                         .keyboardType(.decimalPad)
+                        .frame(width: 50) // Fixed width of 50
                         .toolbar {
                             ToolbarItem(placement: .keyboard) {
-                                Button("閉じる") {
-                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                HStack {
+                                    Spacer()
+                                    Button("閉じる") {
+                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                    }
                                 }
                             }
                         }
+                        Spacer().frame(width: 20) // Fixed spacing of 20
+
                         TextField("単位", text: Binding(
                             get: { ingredient.unit ?? "" },
                             set: { ingredient.unit = $0 }
                         ))
+                        .frame(width: 50) // Fixed width of 50
+
                     }
                 }
                 .onDelete { indexSet in
@@ -133,6 +148,7 @@ struct MyMenuEditView: View {
                     InputView(date: Date(), mealsByDate: MealsByDate(), existingMenu: menu)
                         .environment(\.managedObjectContext, self.viewContext)
                 }
+
                 Button(action: {
                     menu.name = menuName
                     menu.mealTag = mealTag
