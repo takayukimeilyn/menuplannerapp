@@ -17,15 +17,20 @@ struct MyMenuEditView: View {
     @State private var rating: Int
     @State private var imageData: Data?
     @State private var showingInputView = false // <- Add this state variable
+    @State private var ingredientAddedToList: [Bool]
 
     
     init(menu: MyMenu, rating: Int) {
         self.menu = menu
         self._rating = State(initialValue: rating)
         self._imageData = State(initialValue: menu.image)
-        self._ingredients = State(initialValue: (menu.ingredients?.allObjects as? [Ingredient]) ?? [])
-
+        
+        let initialIngredients = (menu.ingredients?.allObjects as? [Ingredient]) ?? []
+        self._ingredients = State(initialValue: initialIngredients)
+        
+        self._ingredientAddedToList = State(initialValue: Array(repeating: false, count: initialIngredients.count))
     }
+
     
     var mealTags = ["主菜", "副菜", "主食", "汁物", "デザート", "その他"]
 
@@ -70,52 +75,20 @@ struct MyMenuEditView: View {
                 TextField("メモ", text: $memo)
             }
             
-            Section(header: Text("材料名")) {
-                ForEach(ingredients, id: \.self) { ingredient in
+            Section(header: Text("材料")) {
+                ForEach(ingredients.indices, id: \.self) { index in
                     HStack {
+                        Toggle("", isOn: $ingredientAddedToList[index])
                         TextField("材料名", text: Binding(
-                            get: { ingredient.name ?? "" },
-                            set: { ingredient.name = $0 }
+                            get: { ingredients[index].name ?? "" },
+                            set: { ingredients[index].name = $0 }
                         ))
-                        .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity) // Give it a flexible width
-
-                        Spacer().frame(width: 20) // Fixed spacing of 20
-                        TextField("数量", text: Binding(
-                            get: {
-                                if floor(ingredient.quantity) == ingredient.quantity {
-                                    return String(format: "%.0f", ingredient.quantity) // 整数の場合
-                                } else {
-                                    return String(ingredient.quantity) // 小数の場合
-                                }
-                            },
-                            set: { newValue in
-                                if newValue.isEmpty {
-                                    ingredient.quantity = 0
-                                } else if let doubleValue = Double(newValue) {
-                                    ingredient.quantity = doubleValue
-                                }
-                            }
-                        ))
-                        .keyboardType(.decimalPad)
-                        .frame(width: 50) // Fixed width of 50
-                        .toolbar {
-                            ToolbarItem(placement: .keyboard) {
-                                HStack {
-                                    Spacer()
-                                    Button("閉じる") {
-                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                    }
-                                }
-                            }
-                        }
-                        Spacer().frame(width: 20) // Fixed spacing of 20
-
+                        .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity) // Add this line
+                        Spacer() // Push the rest of the content to the left
                         TextField("単位", text: Binding(
-                            get: { ingredient.unit ?? "" },
-                            set: { ingredient.unit = $0 }
+                            get: { self.ingredients[index].unit ?? "" },
+                            set: { self.ingredients[index].unit = $0 }
                         ))
-                        .frame(width: 50) // Fixed width of 50
-
                     }
                 }
                 .onDelete { indexSet in
@@ -165,6 +138,12 @@ struct MyMenuEditView: View {
                         return !(ingredient.name ?? "").isEmpty
                     }
                     menu.ingredients = NSSet(array: filteredIngredients)
+                    
+                    for index in ingredients.indices where ingredientAddedToList[index] {
+                        let newShopping = Shopping(context: viewContext)
+                        newShopping.name = ingredients[index].name
+                        newShopping.unit = ingredients[index].unit
+                    }
                     
                     
                     do {

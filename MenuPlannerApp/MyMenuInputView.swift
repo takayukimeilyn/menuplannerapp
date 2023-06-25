@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreData
+import SwiftSoup
 
 struct MyMenuInputView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -14,15 +15,76 @@ struct MyMenuInputView: View {
     @State private var rating: Int = 0
     @State private var ingredients: [(name: String, quantity: Double?, unit: String)] = [(name: "", quantity: nil, unit: "")]
 
-
-    
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @State private var servings = ""
+
+    struct RecipeIngredient: Identifiable {
+        let id = UUID()
+        let name: String
+        let unit: String
+    }
+    
+    @State private var recipeIngredients: [RecipeIngredient] = []
+
+    func scrapeWebsiteData() async {
+        guard let url = URL(string: referenceURL), referenceURL.contains("cookpad.com") else {
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let html = String(decoding: data, as: UTF8.self)
+            let document = try SwiftSoup.parse(html)
+
+            guard let imgElement = try document.select("img.photo.large_photo_clickable").first(),
+                  let servingsElement = try document.select("span.servings_for.yield").first() else {
+                throw NSError(domain: "Required elements not found", code: 1, userInfo: nil)
+            }
+
+            let imageAltText = try imgElement.attr("alt")
+            let servings = try servingsElement.text()
+            
+            let ingredientRows = try document.select("div#ingredients_list div.ingredient_row").array()
+            var recipeIngredients: [RecipeIngredient] = []
+            for ingredientRow in ingredientRows {
+                guard let nameElement = try ingredientRow.select("div.ingredient_name span.name").first(),
+                      let quantityElement = try ingredientRow.select("div.ingredient_quantity.amount").first() else {
+                    continue
+                }
+                let name = try nameElement.text()
+                let unit = try quantityElement.text()
+                recipeIngredients.append(RecipeIngredient(name: name, unit: unit))
+            }
+            
+            let ingredients = recipeIngredients.map { (name: $0.name, quantity: nil as Double?, unit: $0.unit) }
+            DispatchQueue.main.async {
+                self.menuName = imageAltText
+                self.servings = servings
+                self.ingredients = ingredients
+            }
+
+            
+        } catch {
+            print("Failed to scrape website: \(error)")
+        }
+    }
     
     var mealTags = ["主菜", "副菜", "主食", "汁物", "デザート", "その他"]
     
     var body: some View {
         Form {
+            Section(header: Text("参考レシピサイト")) {
+                TextField("URL", text: $referenceURL)
+                Button(action: {
+                    Task {
+                        await scrapeWebsiteData()
+                    }
+                }) {
+                    Text("データ取得(cookpadのみ)")
+                }
+            }
+            
             Section(header: Text("メニュー名")) {
                 TextField("メニュー名", text: $menuName)
             }
@@ -33,10 +95,6 @@ struct MyMenuInputView: View {
                         Text($0)
                     }
                 }
-            }
-            
-            Section(header: Text("参考レシピサイト")) {
-                TextField("URL", text: $referenceURL)
             }
             
             Section(header: Text("評価")) {
@@ -52,31 +110,35 @@ struct MyMenuInputView: View {
                 TextField("Memo", text: $memo)
             }
             
+            Section(header: Text("何人分")) {
+                TextField("何人分", text: $servings)
+            }
+            
             Section(header: Text("材料")) {
                 ForEach(0..<ingredients.count, id: \.self) { index in
                     HStack {
                         TextField("材料名", text: $ingredients[index].name)
                         Spacer()
-                        TextField("数量", text: Binding(
-                            get: { ingredients[index].quantity.map { String($0) } ?? "" },
-                            set: { newValue in
-                                if let doubleValue = Double(newValue) {
-                                    ingredients[index].quantity = doubleValue
-                                } else {
-                                    ingredients[index].quantity = nil
-                                }
-                            }
-                        ))
-                        .keyboardType(.decimalPad)
-                        .toolbar {
-                            ToolbarItem(placement: .keyboard) {
-                                Button("閉じる") {
-                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                }
-                            }
-                        }
+//                        TextField("数量", text: Binding(
+//                            get: { ingredients[index].quantity.map { String($0) } ?? "" },
+//                            set: { newValue in
+//                                if let doubleValue = Double(newValue) {
+//                                    ingredients[index].quantity = doubleValue
+//                                } else {
+//                                    ingredients[index].quantity = nil
+//                                }
+//                            }
+//                        ))
+//                        .keyboardType(.decimalPad)
+//                        .toolbar {
+//                            ToolbarItem(placement: .keyboard) {
+//                                Button("閉じる") {
+//                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                                }
+//                            }
+//                        }
 
-                        TextField("単位", text: $ingredients[index].unit)
+                        TextField("数量", text: $ingredients[index].unit)
                     }
                 }
                 .onDelete { indexSet in
@@ -116,6 +178,7 @@ struct MyMenuInputView: View {
                 for ingredient in ingredients {
                     if !ingredient.name.isEmpty {
                         let newIngredient = Ingredient(context: viewContext)
+                        newIngredient.servings = self.servings
                         newIngredient.name = ingredient.name
                         newIngredient.quantity = ingredient.quantity ?? 0
                         newIngredient.unit = ingredient.unit

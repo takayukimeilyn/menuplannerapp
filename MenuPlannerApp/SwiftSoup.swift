@@ -1,54 +1,76 @@
-//import SwiftUI
-//import SwiftSoup
-//
-//struct SwiftSoupView: View {
-//    @State private var description: String = ""
-//
-//    var body: some View {
-//        Text(description)
-//            .onAppear {
-//                fetchDescription()
-//            }
-//    }
-//
-//    func fetchDescription() {
-//        let url = URL(string:"https://en.wikipedia.org/wiki/Aglaonema")!
-//        do {
-//            self.description = try scrapeHouseplantSpecies(url: url)
-//        } catch {
-//            print("Failed to scrape website: \(error)")
-//        }
-//    }
-//
-//    func scrapeHouseplantSpecies(url: URL) throws -> String {
-//        let html = try String(contentsOf: url)
-//        let document = try SwiftSoup.parse(html)
-//
-//        var element : Element?
-//
-//        let span = try document.select("#Description").first()
-//            ?? document.select("#Description_and_biology").first()
-//            ?? document.select("#Name_and_description").first()
-//            ?? document.select("#Plant_care").first()
-//
-//        if span != nil {
-//            let h2 = span!.parent()!
-//            element = try h2.nextElementSibling()
-//        } else {
-//            // Start collecting text from the beginning of the web page.
-//            let div = try document.select(".mw-parser-output")
-//            element = div.first()?.children()[3]
-//        }
-//
-//        var description = ""
-//        while element != nil {
-//            // Stop at the next "h" tag. (h2, h3, whatever.)
-//            if element!.tagName().starts(with: "h") {
-//                break
-//            }
-//            description += try element!.text()
-//            element = try element!.nextElementSibling()
-//        }
-//        return description
-//    }
-//}
+import SwiftUI
+import SwiftSoup
+
+struct RecipeIngredient: Identifiable {
+    let id = UUID()
+    let name: String
+    let quantity: String
+}
+
+struct SwiftSoupView: View {
+    @State private var imageAltText: String = ""
+    @State private var servings: String = ""
+    @State private var recipeIngredients: [RecipeIngredient] = []
+
+    var body: some View {
+        VStack {
+            Text(imageAltText)
+            Text(servings)
+            List(recipeIngredients) { ingredient in
+                VStack(alignment: .leading) {
+                    Text(ingredient.name)
+                    Text(ingredient.quantity)
+                }
+            }
+        }
+        .onAppear {
+            fetchWebsiteData()
+        }
+    }
+
+    func fetchWebsiteData() {
+        let url = URL(string:"https://cookpad.com/recipe/1177944")!
+        do {
+            let data = try scrapeWebsiteData(url: url)
+            self.imageAltText = data.imageAltText
+            self.servings = data.servings
+            self.recipeIngredients = data.recipeIngredients
+        } catch {
+            print("Failed to scrape website: \(error)")
+        }
+    }
+
+    func scrapeWebsiteData(url: URL) throws -> (imageAltText: String, servings: String, recipeIngredients: [RecipeIngredient]) {
+        let html = try String(contentsOf: url)
+        let document = try SwiftSoup.parse(html)
+
+        guard let imgElement = try document.select("img.photo.large_photo_clickable").first(),
+              let servingsElement = try document.select("span.servings_for.yield").first() else {
+            throw NSError(domain: "Required elements not found", code: 1, userInfo: nil)
+        }
+
+        let imageAltText = try imgElement.attr("alt")
+        let servings = try servingsElement.text()
+        
+        let ingredientRows = try document.select("div#ingredients_list div.ingredient_row").array()
+        var recipeIngredients: [RecipeIngredient] = []
+        for ingredientRow in ingredientRows {
+            guard let nameElement = try ingredientRow.select("div.ingredient_name span.name").first(),
+                  let quantityElement = try ingredientRow.select("div.ingredient_quantity.amount").first() else {
+                continue
+            }
+            let name = try nameElement.text()
+            let quantity = try quantityElement.text()
+            recipeIngredients.append(RecipeIngredient(name: name, quantity: quantity))
+        }
+        
+        return (imageAltText, servings, recipeIngredients)
+    }
+}
+
+// Add the following struct for preview
+struct SwiftSoupView_Previews: PreviewProvider {
+    static var previews: some View {
+        SwiftSoupView()
+    }
+}

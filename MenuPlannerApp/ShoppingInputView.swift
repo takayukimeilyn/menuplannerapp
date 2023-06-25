@@ -19,12 +19,12 @@ struct ShoppingInputView: View {
                     TextField("アイテム", text: $name)
                 }
                 
-                Section(header: Text("個数")) {
-                    TextField("個数", value: $quantity, formatter: NumberFormatter())
-                }
+//                Section(header: Text("個数")) {
+//                    TextField("個数", value: $quantity, formatter: NumberFormatter())
+//                }
                 
-                Section(header: Text("単位")) {
-                    TextField("単位", text: $unit)
+                Section(header: Text("数量")) {
+                    TextField("数量", text: $unit)
                 }
             }
         }

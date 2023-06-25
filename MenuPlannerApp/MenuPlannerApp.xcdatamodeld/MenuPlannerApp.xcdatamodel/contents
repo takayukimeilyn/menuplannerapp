@@ -3,6 +3,7 @@
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="servings" optional="YES" attributeType="String"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
         <relationship name="myMenu" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MyMenu" inverseName="ingredients" inverseEntity="MyMenu"/>
     </entity>

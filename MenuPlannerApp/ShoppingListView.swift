@@ -39,7 +39,7 @@ struct ShoppingListView: View {
                                     .strikethrough(shopping.isChecked, color: .gray)
                                     .foregroundColor(shopping.isChecked ? .gray : .primary)
                                 Spacer()
-                                Text("\(shopping.quantity) \(shopping.unit ?? "")  ")
+                                Text("\(shopping.unit ?? "")  ")
                             }
                         }
                     }
