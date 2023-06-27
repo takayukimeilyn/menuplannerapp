@@ -31,7 +31,7 @@ struct ContentView: View {
             }
             
             // Replace with your ad unit ID
-            AdBannerView(adUnitID: "ca-app-pub-9878109464323588/1239258304")
+            AdBannerView(adUnitID: "ca-app-pub-9878109464323588/6532689844")
                 .frame(height: 50)
         }
     }

@@ -26,6 +26,13 @@ struct MyMenuInputView: View {
     }
     
     @State private var recipeIngredients: [RecipeIngredient] = []
+    
+    private func getSharedURL() -> String {
+        let defaults = UserDefaults(suiteName: "group.takayuki.hashimoto.menuplannerapp.batch")
+        defaults?.synchronize()
+        return defaults?.string(forKey: "url") ?? ""
+    }
+
 
     func scrapeWebsiteData() async {
         guard let url = URL(string: referenceURL), referenceURL.contains("cookpad.com") else {
@@ -162,6 +169,9 @@ struct MyMenuInputView: View {
 //                }
 //            }
         }
+        .onAppear {
+            referenceURL = getSharedURL()
+        }
         .navigationBarTitle("新メニュー")
         .navigationBarItems(trailing: Button(action: {
             if isValidURL(referenceURL) {
@@ -225,37 +235,3 @@ struct MyMenuInputView: View {
         return urlTest.evaluate(with: urlString)
     }
 }
-
-//struct ImagePicker: UIViewControllerRepresentable {
-//    @Environment(\.presentationMode) var presentationMode
-//    @Binding var image: UIImage?
-//    
-//    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-//        let picker = UIImagePickerController()
-//        picker.delegate = context.coordinator
-//        return picker
-//    }
-//    
-//    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-//    }
-//    
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//    
-//    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-//        let parent: ImagePicker
-//        
-//        init(_ parent: ImagePicker) {
-//            self.parent = parent
-//        }
-//        
-//        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//            if let uiImage = info[.originalImage] as? UIImage {
-//                parent.image = uiImage
-//            }
-//            
-//            parent.presentationMode.wrappedValue.dismiss()
-//        }
-//    }
-//}

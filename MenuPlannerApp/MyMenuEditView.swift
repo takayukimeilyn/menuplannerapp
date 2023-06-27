@@ -18,6 +18,8 @@ struct MyMenuEditView: View {
     @State private var imageData: Data?
     @State private var showingInputView = false // <- Add this state variable
     @State private var ingredientAddedToList: [Bool]
+    @State private var ingredientAnimationInProgress: [Bool]
+
 
     
     init(menu: MyMenu, rating: Int) {
@@ -29,6 +31,7 @@ struct MyMenuEditView: View {
         self._ingredients = State(initialValue: initialIngredients)
         
         self._ingredientAddedToList = State(initialValue: Array(repeating: false, count: initialIngredients.count))
+        self._ingredientAnimationInProgress = State(initialValue: Array(repeating: false, count: initialIngredients.count))
     }
 
     
@@ -78,7 +81,25 @@ struct MyMenuEditView: View {
             Section(header: Text("材料")) {
                 ForEach(ingredients.indices, id: \.self) { index in
                     HStack {
-                        Toggle("", isOn: $ingredientAddedToList[index])
+                        Button(action: {
+                            withAnimation {
+                                ingredientAnimationInProgress[index] = true  // アニメーション開始を示す
+                                ingredientAddedToList[index].toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {  // 0.3秒後に実行する
+                                    withAnimation {
+                                        ingredientAnimationInProgress[index] = false  // アニメーション終了を示す
+                                    }
+                                }
+                            }
+                        }) {
+                            Image(systemName: "cart.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20) // アイコンのサイズを調整します
+                                .foregroundColor(ingredientAddedToList[index] ? .blue : .gray) // 条件によって色を変えます
+//                                .offset(x: ingredientAnimationInProgress[index] ? 300 : 0) // 条件によってオフセットを追加します
+                        }
+
+                        .padding(.trailing, 10) // スペースを追加します。
                         TextField("材料名", text: Binding(
                             get: { ingredients[index].name ?? "" },
                             set: { ingredients[index].name = $0 }

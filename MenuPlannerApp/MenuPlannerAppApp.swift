@@ -27,6 +27,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Start Google Mobile Ads
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "792e6321be57a6ad9399deb261a42224" ]
+        GADMobileAds.sharedInstance().start { (status: GADInitializationStatus) in
+          print("AdMob Ads SDK initialization status: \(status.description)")
+        }
+
         
         return true
     }
