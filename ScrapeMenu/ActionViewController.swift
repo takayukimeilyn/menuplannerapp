@@ -1,39 +1,64 @@
 import UIKit
 import MobileCoreServices
+import os.log
+import SwiftUI
+import WebKit  // 追加
 
 class ActionViewController: UIViewController {
 
-    var urlString: String?
+    var pageTitle: String?
+    var pageYield: String?
+    var pageIngredients:[String]?
+    var pageUnits:[String]?
+    var pageURL: String?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
         // Get the item[s] we're handling from the extension context.
         if let item = self.extensionContext?.inputItems.first as? NSExtensionItem {
             for provider in item.attachments! {
-                if provider.hasItemConformingToTypeIdentifier(kUTTypeURL as String) {
-                    provider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil, completionHandler: { (url, error) in
-                        if let shareURL = url as? URL {
-                            self.urlString = shareURL.absoluteString
-                            print("Shared URL: \(self.urlString ?? "No URL")")
+                if provider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
+                    print("Loading item...")  // Changed os_log to print
+                    provider.loadItem(forTypeIdentifier: kUTTypePropertyList as String, options: nil, completionHandler: { (result, error) in
+                        if let error = error {
+                            print("Error loading item: \(error.localizedDescription)")  // Changed os_log to print
+                            return
                         }
+                        print("Item loaded.")  // Changed os_log to print
+                        if let resultDictionary = result as? NSDictionary, let javaScriptValues = resultDictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary {
+                            self.pageTitle = javaScriptValues["title"] as? String
+                            self.pageYield = javaScriptValues["yield"] as? String ?? "" // If yield is null, set it as an empty string
+                            self.pageIngredients = javaScriptValues["ingredients"] as? [String]
+                            self.pageUnits = javaScriptValues["units"] as? [String]
+                            self.pageURL = javaScriptValues["url"] as? String
+                            print("Page Title: \(self.pageTitle ?? "nil")")  // Changed os_log to print
+                            print("Page yield: \(self.pageYield ?? "nil")")  // Changed os_log to print
+                            print("Page ingredients: \(self.pageIngredients ?? ["nil"])")  // Changed os_log to print
+                        }
+
                     })
                 }
             }
         }
     }
 
+
+
     @IBAction func done() {
-        // Return any edited content to the host app.
-        // This template doesn't do anything, so we just echo the passed in items.
-        if let urlString = urlString {
-            setSharedURL(url: urlString)
+        if let pageTitle = pageTitle, let pageYield = pageYield, let pageIngredients = pageIngredients, let pageUnits = pageUnits, let pageURL = pageURL {
+            setSharedData(title: pageTitle, yield: pageYield, ingredients: pageIngredients, units: pageUnits, url: pageURL)
         }
         self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
     }
-    
-    func setSharedURL(url: String) {
+
+    func setSharedData(title: String, yield: String, ingredients: [String], units: [String], url: String) {
         let defaults = UserDefaults(suiteName: "group.takayuki.hashimoto.menuplannerapp.batch")
+        defaults?.set(title, forKey: "title")
+        defaults?.set(yield, forKey: "yield")
+        defaults?.set(ingredients, forKey: "ingredients")
+        defaults?.set(units, forKey: "units")
         defaults?.set(url, forKey: "url")
         defaults?.synchronize()
     }

@@ -8,7 +8,6 @@
 import SwiftUI
 import GoogleMobileAds
 
-
 @main
 struct MenuPlannerAppApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -19,6 +18,7 @@ struct MenuPlannerAppApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear(perform: persistenceController.loadDataAndSave)  // updated line
         }
     }
 }
@@ -32,8 +32,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
           print("AdMob Ads SDK initialization status: \(status.description)")
         }
 
-        
         return true
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        PersistenceController.shared.loadDataAndSave()  // updated line
     }
 }
 
@@ -48,6 +51,48 @@ struct AdBannerView: UIViewRepresentable {
         bannerView.load(GADRequest())
         return bannerView
     }
-    
+
     func updateUIView(_ uiView: GADBannerView, context: Context) {}
+}
+
+extension PersistenceController {
+    func loadDataAndSave() {
+        let defaults = UserDefaults(suiteName: "group.takayuki.hashimoto.menuplannerapp.batch")
+        defaults?.synchronize()
+
+        let pageTitle = defaults?.string(forKey: "title")
+        let yield = defaults?.string(forKey: "yield")
+        let ingredients = defaults?.stringArray(forKey: "ingredients")
+        let units = defaults?.stringArray(forKey: "units")
+        let pageURL = defaults?.string(forKey: "url")
+
+
+        if let pageTitle = pageTitle, let ingredients = ingredients, let units = units {
+            let viewContext = self.container.viewContext
+            let newMenu = MyMenu(context: viewContext)
+            newMenu.name = pageTitle
+            newMenu.referenceURL = URL(string: pageURL ?? "")
+            for (index, ingredientName) in ingredients.enumerated() {
+                if !ingredientName.isEmpty {
+                    let newIngredient = Ingredient(context: viewContext)
+                    newIngredient.name = ingredientName
+                    newIngredient.unit = units[index]
+                    newMenu.addToIngredients(newIngredient)
+                }
+            }
+
+            do {
+                try viewContext.save()
+                // Save成功後にUserDefaultsからデータを削除
+                defaults?.removeObject(forKey: "title")
+                defaults?.removeObject(forKey: "yield")
+                defaults?.removeObject(forKey: "ingredients")
+                defaults?.removeObject(forKey: "units")
+                defaults?.synchronize()
+            } catch {
+                // エラーハンドリングはここに書く
+                print("Failed to save MyMenu: \(error)")
+            }
+        }
+    }
 }
