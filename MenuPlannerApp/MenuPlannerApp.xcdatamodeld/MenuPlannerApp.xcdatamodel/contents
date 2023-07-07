@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
+        <attribute name="isInShoppingList" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="servings" optional="YES" attributeType="String"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
         <relationship name="myMenu" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MyMenu" inverseName="ingredients" inverseEntity="MyMenu"/>
+        <relationship name="shopping" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Shopping" inverseName="ingredient" inverseEntity="Shopping"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -37,5 +39,6 @@
         <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
+        <relationship name="ingredient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="shopping" inverseEntity="Ingredient"/>
     </entity>
 </model>

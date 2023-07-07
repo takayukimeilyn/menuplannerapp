@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15F7A32FEB9A0E246F118169 /* Pods_MenuPlannerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CD481ACBA22D525615483B /* Pods_MenuPlannerApp.framework */; };
 		4B0EBC052A23804A00B4CC63 /* ShoppingInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */; };
 		4B0EBC072A2381C700B4CC63 /* ShoppingEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */; };
 		4B24EDF72A2103F200ABB865 /* MenuPlannerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EDF62A2103F200ABB865 /* MenuPlannerAppApp.swift */; };
@@ -24,13 +25,41 @@
 		4B24EE1A2A22981300ABB865 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B24EE192A22981300ABB865 /* EditView.swift */; };
 		4B51C1ED2A4322CC00C6EE14 /* SwiftSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51C1EC2A4322CC00C6EE14 /* SwiftSoup.swift */; };
 		4B51C1F02A43238B00C6EE14 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 4B51C1EF2A43238B00C6EE14 /* SwiftSoup */; };
+		4B51C2122A4AAF7500C6EE14 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B51C2112A4AAF7500C6EE14 /* UniformTypeIdentifiers.framework */; };
+		4B51C2152A4AAF7500C6EE14 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B51C2142A4AAF7500C6EE14 /* Media.xcassets */; };
+		4B51C2172A4AAF7500C6EE14 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51C2162A4AAF7500C6EE14 /* ActionViewController.swift */; };
+		4B51C21A2A4AAF7600C6EE14 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B51C2182A4AAF7500C6EE14 /* MainInterface.storyboard */; };
+		4B51C21E2A4AAF7600C6EE14 /* ScrapeMenu.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4B51C2102A4AAF7500C6EE14 /* ScrapeMenu.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4B51C2242A4AB0FC00C6EE14 /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 4B51C2232A4AB0FC00C6EE14 /* Action.js */; };
 		4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */; };
-		A36A99BFBA85AF89C055F68D /* Pods_MenuPlannerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4B51C21C2A4AAF7600C6EE14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B24EDEB2A2103F200ABB865 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51C20F2A4AAF7500C6EE14;
+			remoteInfo = ScrapeMenu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4B51C2222A4AAF7600C6EE14 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4B51C21E2A4AAF7600C6EE14 /* ScrapeMenu.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		1B7390C32D454E7D2D426C4A /* Pods-MenuPlannerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuPlannerApp.debug.xcconfig"; path = "Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp.debug.xcconfig"; sourceTree = "<group>"; };
-		40DA8E9A55D7871349A96AA8 /* Pods-MenuPlannerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuPlannerApp.release.xcconfig"; path = "Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp.release.xcconfig"; sourceTree = "<group>"; };
+		15971432811F81E43C0B4CDF /* Pods-MenuPlannerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuPlannerApp.debug.xcconfig"; path = "Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingInputView.swift; sourceTree = "<group>"; };
 		4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingEditView.swift; sourceTree = "<group>"; };
 		4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuPlannerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,9 +78,19 @@
 		4B24EE192A22981300ABB865 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		4B51C1EB2A3FDBFA00C6EE14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B51C1EC2A4322CC00C6EE14 /* SwiftSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSoup.swift; sourceTree = "<group>"; };
+		4B51C2102A4AAF7500C6EE14 /* ScrapeMenu.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScrapeMenu.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B51C2112A4AAF7500C6EE14 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		4B51C2142A4AAF7500C6EE14 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		4B51C2162A4AAF7500C6EE14 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		4B51C2192A4AAF7600C6EE14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		4B51C21B2A4AAF7600C6EE14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B51C2232A4AB0FC00C6EE14 /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
+		4B51C2252A4ABDD600C6EE14 /* MenuPlannerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuPlannerApp.entitlements; sourceTree = "<group>"; };
+		4B51C2262A4AC47100C6EE14 /* ScrapeMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrapeMenu.entitlements; sourceTree = "<group>"; };
 		4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalFood.swift; sourceTree = "<group>"; };
 		4BB0A8C72A3401B80089729F /* MenuPlannerApp 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MenuPlannerApp 2.xcdatamodel"; sourceTree = "<group>"; };
-		AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuPlannerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		83CD481ACBA22D525615483B /* Pods_MenuPlannerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuPlannerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEFE59A9DFD5D5CBC964686D /* Pods-MenuPlannerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuPlannerApp.release.xcconfig"; path = "Target Support Files/Pods-MenuPlannerApp/Pods-MenuPlannerApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,29 +98,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A36A99BFBA85AF89C055F68D /* Pods_MenuPlannerApp.framework in Frameworks */,
 				4B51C1F02A43238B00C6EE14 /* SwiftSoup in Frameworks */,
+				15F7A32FEB9A0E246F118169 /* Pods_MenuPlannerApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B51C20D2A4AAF7500C6EE14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B51C2122A4AAF7500C6EE14 /* UniformTypeIdentifiers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		43342D01ADC24C32B200DB34 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AAA4A9237537BBD813283473 /* Pods_MenuPlannerApp.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		4B24EDEA2A2103F200ABB865 = {
 			isa = PBXGroup;
 			children = (
 				4B24EDF52A2103F200ABB865 /* MenuPlannerApp */,
+				4B51C2132A4AAF7500C6EE14 /* ScrapeMenu */,
 				4B24EDF42A2103F200ABB865 /* Products */,
 				D82C2863DE0D432C3360F0E9 /* Pods */,
-				43342D01ADC24C32B200DB34 /* Frameworks */,
+				FA84CEC90741C34B628AAA2E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */,
+				4B51C2102A4AAF7500C6EE14 /* ScrapeMenu.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +137,7 @@
 		4B24EDF52A2103F200ABB865 /* MenuPlannerApp */ = {
 			isa = PBXGroup;
 			children = (
+				4B51C2252A4ABDD600C6EE14 /* MenuPlannerApp.entitlements */,
 				4B51C1EB2A3FDBFA00C6EE14 /* Info.plist */,
 				4B24EDF62A2103F200ABB865 /* MenuPlannerAppApp.swift */,
 				4B24EDF82A2103F200ABB865 /* ContentView.swift */,
@@ -126,13 +168,35 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4B51C2132A4AAF7500C6EE14 /* ScrapeMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4B51C2262A4AC47100C6EE14 /* ScrapeMenu.entitlements */,
+				4B51C2142A4AAF7500C6EE14 /* Media.xcassets */,
+				4B51C2162A4AAF7500C6EE14 /* ActionViewController.swift */,
+				4B51C2182A4AAF7500C6EE14 /* MainInterface.storyboard */,
+				4B51C21B2A4AAF7600C6EE14 /* Info.plist */,
+				4B51C2232A4AB0FC00C6EE14 /* Action.js */,
+			);
+			path = ScrapeMenu;
+			sourceTree = "<group>";
+		};
 		D82C2863DE0D432C3360F0E9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1B7390C32D454E7D2D426C4A /* Pods-MenuPlannerApp.debug.xcconfig */,
-				40DA8E9A55D7871349A96AA8 /* Pods-MenuPlannerApp.release.xcconfig */,
+				15971432811F81E43C0B4CDF /* Pods-MenuPlannerApp.debug.xcconfig */,
+				DEFE59A9DFD5D5CBC964686D /* Pods-MenuPlannerApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA84CEC90741C34B628AAA2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83CD481ACBA22D525615483B /* Pods_MenuPlannerApp.framework */,
+				4B51C2112A4AAF7500C6EE14 /* UniformTypeIdentifiers.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,15 +206,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B24EE062A2103F400ABB865 /* Build configuration list for PBXNativeTarget "MenuPlannerApp" */;
 			buildPhases = (
-				9D083E1715C73267DA19DA22 /* [CP] Check Pods Manifest.lock */,
+				823000501A5AC9A7CA68C1E5 /* [CP] Check Pods Manifest.lock */,
 				4B24EDEF2A2103F200ABB865 /* Sources */,
 				4B24EDF02A2103F200ABB865 /* Frameworks */,
 				4B24EDF12A2103F200ABB865 /* Resources */,
-				DF393ACDD0E2D0FC0618AB65 /* [CP] Embed Pods Frameworks */,
+				EBE9B5B4C8745DBCB99C5A33 /* [CP] Embed Pods Frameworks */,
+				4B51C2222A4AAF7600C6EE14 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4B51C21D2A4AAF7600C6EE14 /* PBXTargetDependency */,
 			);
 			name = MenuPlannerApp;
 			packageProductDependencies = (
@@ -159,6 +225,23 @@
 			productName = MenuPlannerApp;
 			productReference = 4B24EDF32A2103F200ABB865 /* MenuPlannerApp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4B51C20F2A4AAF7500C6EE14 /* ScrapeMenu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B51C21F2A4AAF7600C6EE14 /* Build configuration list for PBXNativeTarget "ScrapeMenu" */;
+			buildPhases = (
+				4B51C20C2A4AAF7500C6EE14 /* Sources */,
+				4B51C20D2A4AAF7500C6EE14 /* Frameworks */,
+				4B51C20E2A4AAF7500C6EE14 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrapeMenu;
+			productName = ScrapeMenu;
+			productReference = 4B51C2102A4AAF7500C6EE14 /* ScrapeMenu.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -172,6 +255,9 @@
 				TargetAttributes = {
 					4B24EDF22A2103F200ABB865 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					4B51C20F2A4AAF7500C6EE14 = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
@@ -193,6 +279,7 @@
 			projectRoot = "";
 			targets = (
 				4B24EDF22A2103F200ABB865 /* MenuPlannerApp */,
+				4B51C20F2A4AAF7500C6EE14 /* ScrapeMenu */,
 			);
 		};
 /* End PBXProject section */
@@ -207,10 +294,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4B51C20E2A4AAF7500C6EE14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B51C2242A4AB0FC00C6EE14 /* Action.js in Resources */,
+				4B51C2152A4AAF7500C6EE14 /* Media.xcassets in Resources */,
+				4B51C21A2A4AAF7600C6EE14 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9D083E1715C73267DA19DA22 /* [CP] Check Pods Manifest.lock */ = {
+		823000501A5AC9A7CA68C1E5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,7 +329,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF393ACDD0E2D0FC0618AB65 /* [CP] Embed Pods Frameworks */ = {
+		EBE9B5B4C8745DBCB99C5A33 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -274,7 +371,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4B51C20C2A4AAF7500C6EE14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B51C2172A4AAF7500C6EE14 /* ActionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4B51C21D2A4AAF7600C6EE14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B51C20F2A4AAF7500C6EE14 /* ScrapeMenu */;
+			targetProxy = 4B51C21C2A4AAF7600C6EE14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4B51C2182A4AAF7500C6EE14 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4B51C2192A4AAF7600C6EE14 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4B24EE042A2103F400ABB865 /* Debug */ = {
@@ -393,12 +517,14 @@
 		};
 		4B24EE072A2103F400ABB865 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B7390C32D454E7D2D426C4A /* Pods-MenuPlannerApp.debug.xcconfig */;
+			baseConfigurationReference = 15971432811F81E43C0B4CDF /* Pods-MenuPlannerApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MenuPlannerApp/MenuPlannerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.3;
+				CURRENT_PROJECT_VERSION = 1.0.6;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -414,7 +540,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -428,12 +554,14 @@
 		};
 		4B24EE082A2103F400ABB865 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40DA8E9A55D7871349A96AA8 /* Pods-MenuPlannerApp.release.xcconfig */;
+			baseConfigurationReference = DEFE59A9DFD5D5CBC964686D /* Pods-MenuPlannerApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MenuPlannerApp/MenuPlannerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.3;
+				CURRENT_PROJECT_VERSION = 1.0.6;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -449,12 +577,64 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4B51C2202A4AAF7600C6EE14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ScrapeMenu/ScrapeMenu.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y8DN4T44B;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScrapeMenu/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "おうちごはんに連携";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp.ScrapeMenu;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B51C2212A4AAF7600C6EE14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ScrapeMenu/ScrapeMenu.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y8DN4T44B;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScrapeMenu/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "おうちごはんに連携";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp.ScrapeMenu;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -478,6 +658,15 @@
 			buildConfigurations = (
 				4B24EE072A2103F400ABB865 /* Debug */,
 				4B24EE082A2103F400ABB865 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B51C21F2A4AAF7600C6EE14 /* Build configuration list for PBXNativeTarget "ScrapeMenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B51C2202A4AAF7600C6EE14 /* Debug */,
+				4B51C2212A4AAF7600C6EE14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

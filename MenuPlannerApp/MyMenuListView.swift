@@ -3,6 +3,9 @@ import CoreData
 
 struct MyMenuListView: View {
     @Environment(\.managedObjectContext) private var viewContext
+
+    @State private var refreshTrigger = false
+
     @FetchRequest(
         entity: MyMenu.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \MyMenu.name, ascending: true)]
@@ -42,7 +45,14 @@ struct MyMenuListView: View {
                     }
                 )
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                self.refreshData()
+            }
         }
+    }
+
+    private func refreshData() {
+        self.refreshTrigger.toggle()
     }
 
     private func deleteMenu(at offsets: IndexSet) {
@@ -57,8 +67,9 @@ struct MyMenuListView: View {
             print("Failed to delete MyMenu: \(error)")
         }
     }
-    
 }
+
+
 
 struct StarRatingView: View {
     @Binding var rating: Int
@@ -75,3 +86,15 @@ struct StarRatingView: View {
         }
     }
 }
+
+//class FetchedResultsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
+//    let didChangeContent: () -> Void
+//
+//    init(didChangeContent: @escaping () -> Void) {
+//        self.didChangeContent = didChangeContent
+//    }
+//
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        didChangeContent()
+//    }
+//}

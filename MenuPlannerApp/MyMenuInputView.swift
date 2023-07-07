@@ -26,6 +26,13 @@ struct MyMenuInputView: View {
     }
     
     @State private var recipeIngredients: [RecipeIngredient] = []
+    
+    private func getSharedURL() -> String {
+        let defaults = UserDefaults(suiteName: "group.takayuki.hashimoto.menuplannerapp.batch")
+        defaults?.synchronize()
+        return defaults?.string(forKey: "url") ?? ""
+    }
+
 
     func scrapeWebsiteData() async {
         guard let url = URL(string: referenceURL), referenceURL.contains("cookpad.com") else {
@@ -119,25 +126,6 @@ struct MyMenuInputView: View {
                     HStack {
                         TextField("材料名", text: $ingredients[index].name)
                         Spacer()
-//                        TextField("数量", text: Binding(
-//                            get: { ingredients[index].quantity.map { String($0) } ?? "" },
-//                            set: { newValue in
-//                                if let doubleValue = Double(newValue) {
-//                                    ingredients[index].quantity = doubleValue
-//                                } else {
-//                                    ingredients[index].quantity = nil
-//                                }
-//                            }
-//                        ))
-//                        .keyboardType(.decimalPad)
-//                        .toolbar {
-//                            ToolbarItem(placement: .keyboard) {
-//                                Button("閉じる") {
-//                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//                                }
-//                            }
-//                        }
-
                         TextField("数量", text: $ingredients[index].unit)
                     }
                 }
@@ -148,19 +136,12 @@ struct MyMenuInputView: View {
                     ingredients.append((name: "", quantity: nil, unit: ""))
                 }
             }
-            
-//            Section(header: Text("Image")) {
-//                if let inputImage = image {
-//                    Image(uiImage: inputImage)
-//                        .resizable()
-//                        .scaledToFit()
-//                }
-//                Button(action: {
-//                    self.showingImagePicker = true
-//                }) {
-//                    Text("Select Image")
-//                }
-//            }
+        }
+        .onAppear {
+            referenceURL = getSharedURL()
+            Task {
+                await scrapeWebsiteData()
+            }
         }
         .navigationBarTitle("新メニュー")
         .navigationBarItems(trailing: Button(action: {
@@ -205,15 +186,7 @@ struct MyMenuInputView: View {
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
-//        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-//            ImagePicker(image: $image)
-//        }
     }
-    
-//    func loadImage() {
-//        guard let inputImage = image else { return }
-//        self.image = inputImage
-//    }
     
     func isValidURL(_ urlString: String) -> Bool {
         if urlString.isEmpty {
@@ -225,37 +198,3 @@ struct MyMenuInputView: View {
         return urlTest.evaluate(with: urlString)
     }
 }
-
-//struct ImagePicker: UIViewControllerRepresentable {
-//    @Environment(\.presentationMode) var presentationMode
-//    @Binding var image: UIImage?
-//    
-//    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-//        let picker = UIImagePickerController()
-//        picker.delegate = context.coordinator
-//        return picker
-//    }
-//    
-//    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-//    }
-//    
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//    
-//    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-//        let parent: ImagePicker
-//        
-//        init(_ parent: ImagePicker) {
-//            self.parent = parent
-//        }
-//        
-//        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//            if let uiImage = info[.originalImage] as? UIImage {
-//                parent.image = uiImage
-//            }
-//            
-//            parent.presentationMode.wrappedValue.dismiss()
-//        }
-//    }
-//}
