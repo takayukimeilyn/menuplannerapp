@@ -18,7 +18,7 @@ struct MyMenuEditView: View {
     @State private var imageData: Data?
     @State private var showingInputView = false // <- Add this state variable
     @State private var ingredientAddedToList: [Bool]
-    @State private var shoppingListChange: Bool = false
+//    @State private var shoppingListChange: Bool = false
 
     
     @FetchRequest(
@@ -42,7 +42,7 @@ struct MyMenuEditView: View {
         Form {
             Section(header: Text("メニュー")) {
                 HStack {
-                    if let imageData = imageData, let uiImage = UIImage(data: imageData) {
+                    if let imageData = menu.image, let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFit()
@@ -148,11 +148,11 @@ struct MyMenuEditView: View {
                 Button(action: {
                     showingInputView = true
                 }) {
-                    Text("予定追加")
+                    Text("献立追加")
                 }
                 .sheet(isPresented: $showingInputView) {
                     // Pass the menu object to InputView
-                    InputView(date: Date(), mealsByDate: MealsByDate(), existingMenu: menu)
+                    InputView(date: Date(), mealsByDate: MealsByDate(), existingMenu: menu, mealTag: mealTag)
                         .environment(\.managedObjectContext, self.viewContext)
                 }
 
@@ -197,9 +197,9 @@ struct MyMenuEditView: View {
             referenceURL = menu.referenceURL?.absoluteString ?? ""
             memo = menu.memo ?? ""
         }
-        .onReceive(viewContext.didSavePublisher) { _ in
-            shoppingListChange.toggle()
-        }
+//        .onReceive(viewContext.didSavePublisher) { _ in
+//            shoppingListChange.toggle()
+//        }
     }
     
     func isIngredientInShoppingList(name: String?) -> Bool {

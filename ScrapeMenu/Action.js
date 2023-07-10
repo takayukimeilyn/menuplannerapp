@@ -17,6 +17,7 @@ run: function(arguments) {
                 data.ingredients.push(split[0]);
                 data.units.push(split.slice(1).join(' '));
             }
+            data.images = json.image || [];
             break;
         }
     }

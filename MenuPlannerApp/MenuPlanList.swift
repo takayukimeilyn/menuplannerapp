@@ -165,7 +165,7 @@ struct MenuPlanList: View {
             }
             .navigationBarTitle("献立予定表", displayMode: .inline)
             .navigationBarItems(trailing:
-                                    NavigationLink(destination: InputView(mealsByDate: mealsByDate)) {
+                                    NavigationLink(destination: InputView(mealsByDate: mealsByDate, mealTag: "")) {
                     HStack{
                         Image(systemName: "plus")
                         Text("新規追加")
@@ -214,7 +214,7 @@ struct MenuList: View {
                             .foregroundColor(Calendar.current.isDateInToday(date) ? .blue : .gray)
                             //                            .padding(.vertical)
                             Spacer()
-                            NavigationLink(destination: InputView(date: date, mealsByDate: mealsByDate)) {
+                            NavigationLink(destination: InputView(date: date, mealsByDate: mealsByDate, mealTag: "")) {
                                 HStack {
                                     Image(systemName: "plus")
                                     //                                    Text("Add menu")

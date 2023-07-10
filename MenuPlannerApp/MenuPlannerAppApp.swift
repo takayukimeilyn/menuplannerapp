@@ -77,6 +77,7 @@ extension PersistenceController {
                 let ingredients = dataDictionary["ingredients"] as? [String],
                 let units = dataDictionary["units"] as? [String],
                 let pageURL = dataDictionary["url"] as? String else { continue }
+            
                     
             let viewContext = self.container.viewContext
             let newMenu = MyMenu(context: viewContext)
@@ -90,6 +91,9 @@ extension PersistenceController {
                     newIngredient.servings = yield
                     newMenu.addToIngredients(newIngredient)
                 }
+            }
+            if let imagesURLs = dataDictionary["images"] as? [String], let imageURL = imagesURLs.first, let url = URL(string: imageURL), let imageData = try? Data(contentsOf: url) {
+                newMenu.image = imageData
             }
                     
             do {

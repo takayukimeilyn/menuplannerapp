@@ -16,11 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ga-4F-77Z">
+                                <rect key="frame" x="0.0" y="103" width="320" height="391"/>
+                            </imageView>
                             <navigationBar contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NOA-Dm-cuz">
                                 <rect key="frame" x="0.0" y="59" width="320" height="44"/>
                                 <items>
                                     <navigationItem id="3HJ-uW-3hn">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="WYi-yp-eM6">
+                                        <barButtonItem key="leftBarButtonItem" title="戻る" id="snw-YK-hOG">
+                                            <connections>
+                                                <action selector="backToOriginalSite:" destination="ObA-dk-sSI" id="fYW-pg-HKd"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="保存" style="done" id="WYi-yp-eM6">
                                             <connections>
                                                 <action selector="done" destination="ObA-dk-sSI" id="Qdu-qn-U6V"/>
                                             </connections>
@@ -28,9 +36,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ga-4F-77Z">
-                                <rect key="frame" x="0.0" y="103" width="320" height="391"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VVe-Uw-JpX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
