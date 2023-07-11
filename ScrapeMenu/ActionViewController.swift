@@ -23,29 +23,41 @@ class ActionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(white: 0.9, alpha: 1.0)  //薄めのグレー
-        
+//        self.view.backgroundColor = UIColor(white: 0.9, alpha: 1.0)  //薄めのグレー
+        self.view.backgroundColor = UIColor.systemBackground  //ダークモードとライトモードに対応
 
+        
+        // ImageViewの配置を定義します
+        pageImageView.frame = CGRect(x: 20, y: 80, width: self.view.frame.width - 100, height: 200)
+//        pageImageView.backgroundColor = .lightGray
+        pageImageView.backgroundColor = .systemGray  //ダークモードとライトモードに対応
+
+        pageImageView.contentMode = .scaleAspectFit  // 画像のアスペクト比を保持しつつ表示
+        
         // UI要素の設定
         let spacing: CGFloat = 10.0 // ラベル間の余白
         
-        titleLabel.frame = CGRect(x: 20, y: 80, width: self.view.frame.width - 40, height: 30)
-        titleLabel.backgroundColor = .white
-        titleLabel.layer.cornerRadius = 5.0
+        titleLabel.frame = CGRect(x: 20, y: pageImageView.frame.origin.y + pageImageView.frame.size.height + spacing, width: self.view.frame.width - 40, height: 30)
+        titleLabel.backgroundColor = .systemBackground  //ダークモードとライトモードに対応
+        titleLabel.textColor = .label  //ダークモードとライトモードに対応
+
+
+//        titleLabel.backgroundColor = .white
+//        titleLabel.layer.cornerRadius = 5.0
 
         yieldLabel.frame = CGRect(x: 20, y: titleLabel.frame.origin.y + titleLabel.frame.size.height + spacing, width: self.view.frame.width - 40, height: 30)
-        yieldLabel.backgroundColor = .white
-        yieldLabel.layer.cornerRadius = 5.0
+        yieldLabel.backgroundColor = .systemBackground  //ダークモードとライトモードに対応
+        yieldLabel.textColor = .label  //ダークモードとライトモードに対応
+//        yieldLabel.backgroundColor = .white
+//        yieldLabel.layer.cornerRadius = 5.0
 
         ingredientsLabel.frame = CGRect(x: 20, y: yieldLabel.frame.origin.y + yieldLabel.frame.size.height + spacing, width: self.view.frame.width - 40, height: 120)
+        ingredientsLabel.backgroundColor = .systemBackground  //ダークモードとライトモードに対応
+        ingredientsLabel.textColor = .label
         ingredientsLabel.numberOfLines = 0
-        ingredientsLabel.backgroundColor = .white
-        ingredientsLabel.layer.cornerRadius = 5.0
+//        ingredientsLabel.backgroundColor = .white
+//        ingredientsLabel.layer.cornerRadius = 5.0
         
-        // ImageViewの配置を定義します
-        pageImageView.frame = CGRect(x: 20, y: ingredientsLabel.frame.origin.y + ingredientsLabel.frame.size.height + spacing, width: self.view.frame.width - 40, height: 200)
-        pageImageView.backgroundColor = .lightGray
-        pageImageView.contentMode = .scaleAspectFit  // 画像のアスペクト比を保持しつつ表示
         
         self.view.addSubview(titleLabel)
         self.view.addSubview(yieldLabel)

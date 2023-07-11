@@ -6,7 +6,7 @@ struct InputView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var date: Date
     @State private var mealTime = "朝食"
-    @State private var mealTag: String
+    @State private var mealTag: String = ""
     @State private var menuName: String = ""
     @State private var referenceURL: String = ""
     @State private var isCreatingNewMenu = false
@@ -14,16 +14,16 @@ struct InputView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var mealsByDate: MealsByDate
     @State private var isShowingMyMenuList = false
-    @State private var mealTagIcon: String = "questionmark"
+//    @State private var mealTagIcon: String = "questionmark"
     @State private var selectedMyMenu: MyMenu? // New property
 
     var existingMenu: MyMenu? // <- Add this property
     
-    init(date: Date? = nil, mealsByDate: MealsByDate, existingMenu: MyMenu? = nil, mealTag: String) {
+    init(date: Date? = nil, mealsByDate: MealsByDate, existingMenu: MyMenu? = nil) {
         self._date = State(initialValue: date ?? Date()) // オプショナル型のdateを使用
         self.mealsByDate = mealsByDate
         self.existingMenu = existingMenu // <- Set the existingMenu
-        self._mealTag = State(initialValue: mealTag) // Set the mealTag
+        self._mealTag = State(initialValue: existingMenu?.mealTag ?? mealTag)
     }
     
     @FetchRequest(

@@ -8,7 +8,7 @@ struct MyMenuEditView: View {
 
     @ObservedObject var menu: MyMenu
     @State private var menuName = ""
-    @State private var mealTag = "主菜"
+    @State private var mealTag: String
     @State private var ingredients: [Ingredient]
     @State private var referenceURL = ""
     @State private var memo = ""
@@ -19,7 +19,6 @@ struct MyMenuEditView: View {
     @State private var showingInputView = false // <- Add this state variable
     @State private var ingredientAddedToList: [Bool]
 //    @State private var shoppingListChange: Bool = false
-
     
     @FetchRequest(
         entity: Shopping.entity(),
@@ -30,7 +29,7 @@ struct MyMenuEditView: View {
         self.menu = menu
         self._rating = State(initialValue: rating)
         self._imageData = State(initialValue: menu.image)
-        
+        self._mealTag = State(initialValue: menu.mealTag ?? "主菜")
         let initialIngredients = (menu.ingredients?.allObjects as? [Ingredient]) ?? []
         self._ingredients = State(initialValue: initialIngredients)
         self._ingredientAddedToList = State(initialValue: Array(repeating: false, count: initialIngredients.count))
@@ -146,13 +145,42 @@ struct MyMenuEditView: View {
         .navigationBarItems(trailing:
             HStack{
                 Button(action: {
+                    menu.name = menuName
+                    menu.mealTag = mealTag
+                    menu.rating = Int16(rating)
+                    if isValidURL(referenceURL) {
+                        menu.referenceURL = URL(string: referenceURL)
+                    } else {
+                        alertMessage = "Invalid URL"
+                        showingAlert = true
+                        return
+                    }
+                    menu.memo = memo
+                    let filteredIngredients = ingredients.filter { ingredient in
+                        return !(ingredient.name ?? "").isEmpty
+                    }
+                    menu.ingredients = NSSet(array: filteredIngredients)
+                    
+                    for index in ingredients.indices where ingredientAddedToList[index] {
+                        let newShopping = Shopping(context: viewContext)
+                        newShopping.name = ingredients[index].name
+                        newShopping.unit = ingredients[index].unit
+                    }
+                    
+                    do {
+                        try viewContext.save()
+//                        presentationMode.wrappedValue.dismiss()
+                    } catch {
+                        alertMessage = "Failed to save MyMenu: \(error)"
+                        showingAlert = true
+                    }
                     showingInputView = true
                 }) {
                     Text("献立追加")
                 }
                 .sheet(isPresented: $showingInputView) {
                     // Pass the menu object to InputView
-                    InputView(date: Date(), mealsByDate: MealsByDate(), existingMenu: menu, mealTag: mealTag)
+                    InputView(date: Date(), mealsByDate: MealsByDate(), existingMenu: menu)
                         .environment(\.managedObjectContext, self.viewContext)
                 }
 
@@ -193,7 +221,7 @@ struct MyMenuEditView: View {
         )
         .onAppear {
             menuName = menu.name ?? ""
-            mealTag = menu.mealTag ?? ""
+//            mealTag = menu.mealTag ?? ""
             referenceURL = menu.referenceURL?.absoluteString ?? ""
             memo = menu.memo ?? ""
         }
