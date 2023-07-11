@@ -307,22 +307,16 @@ struct MealTimeView: View {
             .background(mealTimeColor(mealTime))
             .cornerRadius(5)
         ) {
-//            List{
-                ForEach(meals, id: \.self) { meal in
-                    NavigationLink(destination: EditView(meal: meal, mealsByDate: mealsByDate)) {
-                        HStack {
-                            Text(emojiForMealTag(meal.mealTag ?? ""))
-                            Text(meal.menuName ?? "No menu")
-                        }
+            ForEach(meals, id: \.self) { meal in
+                NavigationLink(destination: EditView(meal: meal, mealsByDate: mealsByDate)) {
+                    HStack {
+                        Text(emojiForMealTag(meal.mealTag ?? ""))
+                        Text(meal.menuName ?? "No menu")
+                            .foregroundColor(Color.primary)
                     }
                 }
-                .onDelete(perform: deleteMeal)
-//            }
-//            .onAppear {
-//                for meal in meals {
-//                    print("Menu Name: \(meal.menuName ?? "No menu name")")
-//                }
-//            }
+            }
+            .onDelete(perform: deleteMeal)
         }
     }
 }

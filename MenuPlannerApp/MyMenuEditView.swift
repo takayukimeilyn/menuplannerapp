@@ -41,11 +41,15 @@ struct MyMenuEditView: View {
         Form {
             Section(header: Text("メニュー")) {
                 HStack {
-                    if let imageData = menu.image, let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
+                    if let imageData = menu.image, let originalImage = UIImage(data: imageData) {
+                        if let resizedImage = resizeImage(image: originalImage, targetSize: CGSize(width: 360, height: 360)) {
+                            Image(uiImage: resizedImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 100) // ここで幅は指定せず、高さのみを指定します
+                                .clipped()
+                                .cornerRadius(5)
+                        }
                     }
                     TextField("メニュー名", text: $menuName)
                 }
@@ -71,10 +75,6 @@ struct MyMenuEditView: View {
                         }
                     }
                 }
-            }
-                        
-            Section(header: Text("メモ")) {
-                TextField("メモ", text: $memo)
             }
             
             Section(header: Text("何人分")) {
@@ -136,6 +136,10 @@ struct MyMenuEditView: View {
                     newIngredient.unit = ""
                     ingredients.append(newIngredient)
                 }
+            }
+            
+            Section(header: Text("メモ")) {
+                TextField("メモ", text: $memo)
             }
         }
         .alert(isPresented: $showingAlert) {
@@ -229,6 +233,18 @@ struct MyMenuEditView: View {
 //            shoppingListChange.toggle()
 //        }
     }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: targetSize))
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = image
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 1.0)
+        imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+
     
     func isIngredientInShoppingList(name: String?) -> Bool {
         guard let name = name else {

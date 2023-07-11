@@ -29,9 +29,19 @@ struct MyMenuListView: View {
                         HStack {
                             NavigationLink(destination: MyMenuEditView(menu: menu, rating: Int(menu.rating))) {
                                 HStack {
+                                    if let imageData = menu.image, let originalImage = UIImage(data: imageData) {
+                                        if let resizedImage = resizeImage(image: originalImage, targetSize: CGSize(width: 360, height: 360)) {
+                                            Image(uiImage: resizedImage)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(height: 50) // ここで幅は指定せず、高さのみを指定します
+                                                .clipped()
+                                                .cornerRadius(5)
+                                        }
+                                    }
                                     Text(menu.name ?? "")
-                                    Spacer()
-                                    StarRatingView(rating: .constant(Int(menu.rating)))
+//                                    Spacer()
+//                                    StarRatingView(rating: .constant(Int(menu.rating)))
                                 }
                             }
                         }
@@ -49,6 +59,17 @@ struct MyMenuListView: View {
                 self.refreshData()
             }
         }
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: targetSize))
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = image
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 1.0)
+        imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
     }
 
     private func refreshData() {

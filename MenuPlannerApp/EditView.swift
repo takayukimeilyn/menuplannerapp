@@ -30,11 +30,6 @@ struct EditView: View {
             _menuName = State(initialValue: meal.menuName ?? "")
             _selectedMenuURL = State(initialValue: nil)
         }
-//        if let menu = meal.menu {
-//            _selectedMenu = State(initialValue: menu)
-//        } else {
-//            _selectedMenu = State(initialValue: nil)
-//        }
     }
     
     func fetchMyMenu(withName name: String) -> MyMenu? {
@@ -58,7 +53,7 @@ struct EditView: View {
 
             Section {
                 Picker("Meal Time", selection: Binding<String>(
-                    get: { self.meal.mealTime ?? "朝食" },
+                    get: { self.meal.mealTime ?? "夕食" },
                     set: { self.meal.mealTime = $0 }
                 )) {
                     ForEach(["朝食", "昼食", "夕食", "その他"], id: \.self) {
@@ -69,7 +64,7 @@ struct EditView: View {
             }
             
             Section(header: HStack {
-                Text("Menu Name")
+                Text("メニュー名")
                 Spacer()
                 Button(action: {
                     self.isShowingMyMenuList.toggle()
@@ -120,63 +115,30 @@ struct EditView: View {
                     .foregroundColor(.red)
                 }
             
-                Button(action: {
-                    do {
-                        meal.date = selectedDate
+            Button(action: {
+                do {
+                    meal.date = selectedDate
 
-                        if let selectedMenu = selectedMenu {
-                            // If a menu is selected from MyMenu, set the meal's menu to the selected MyMenu entry
-                            meal.menu = selectedMenu
-                            meal.menuName = selectedMenu.name
-                            meal.mealTag = selectedMenu.mealTag
-                            // If URL is associated with selectedMenu
-                            meal.menu?.referenceURL = selectedMenu.referenceURL
-                        } else {
-                            // If it doesn't match, create a new MyMenu entity
-                            let newMyMenu = MyMenu(context: viewContext)
-                            newMyMenu.name = menuName
-                            meal.menu = newMyMenu
-                            meal.menuName = menuName
-                        }
-                        
-                        try meal.managedObjectContext?.save()
-                        presentationMode.wrappedValue.dismiss()
-                    } catch {
-                        print("Failed to update Meal: \(error)")
+                    if let selectedMenu = selectedMenu {
+                        // If a menu is selected from MyMenu, set the meal's menu to the selected MyMenu entry
+                        meal.menu = selectedMenu
+                        meal.menuName = selectedMenu.name
+                        meal.mealTag = selectedMenu.mealTag
+                        // If URL is associated with selectedMenu
+                        meal.menu?.referenceURL = selectedMenu.referenceURL
+                    } else {
+                        // Only set the meal's menuName
+                        meal.menuName = menuName
                     }
-                }) {
-                    Text("保存")
+                    
+                    try meal.managedObjectContext?.save()
+                    presentationMode.wrappedValue.dismiss()
+                } catch {
+                    print("Failed to update Meal: \(error)")
                 }
-
-            
-//                Button(action: {
-//                    do {
-//                        meal.date = selectedDate
-//
-//                        // Check if the entered menu name matches one of the MyMenu entries
-////                        let matchingMenu = fetchMyMenu(withName: menuName)
-////                        if let matchingMenu = matchingMenu {
-//                        if let selectedMenu = selectedMenu {
-//
-//                            // If it matches, set the meal's menu to the matched MyMenu entry
-////                            meal.menu = matchingMenu
-//                            meal.menu = selectedMenu
-//                        } else if !menuName.isEmpty {
-//                            // If it doesn't match, create a new MyMenu entity
-//                            let newMyMenu = MyMenu(context: viewContext)
-//                            newMyMenu.name = menuName
-//                            meal.menu = newMyMenu
-//                            meal.menuName = menuName
-//                        }
-//
-//                        try meal.managedObjectContext?.save()
-//                        presentationMode.wrappedValue.dismiss()
-//                    } catch {
-//                        print("Failed to update Meal: \(error)")
-//                    }
-//                }) {
-//                    Text("保存")
-//                }
+            }) {
+                Text("保存")
+            }
         })
         }
 }

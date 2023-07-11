@@ -28,8 +28,10 @@ class ActionViewController: UIViewController {
 
         
         // ImageViewの配置を定義します
-        pageImageView.frame = CGRect(x: 20, y: 80, width: self.view.frame.width - 100, height: 200)
-//        pageImageView.backgroundColor = .lightGray
+        pageImageView.frame = CGRect(x: 20, y: 80, width: 60, height: 60)
+        pageImageView.layer.cornerRadius = 5
+        pageImageView.clipsToBounds = true
+
         pageImageView.backgroundColor = .systemGray  //ダークモードとライトモードに対応
 
         pageImageView.contentMode = .scaleAspectFit  // 画像のアスペクト比を保持しつつ表示
