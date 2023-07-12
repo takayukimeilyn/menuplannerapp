@@ -12,6 +12,7 @@ struct MyMenuEditView: View {
     @State private var ingredients: [Ingredient]
     @State private var referenceURL = ""
     @State private var memo = ""
+    @State private var servings = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var rating: Int
@@ -84,7 +85,7 @@ struct MyMenuEditView: View {
                         set: { self.ingredients[0].servings = $0 }
                     ))
                 } else {
-                    Text("材料がありません")
+                    TextField("何人分？", text: $servings)
                 }
             }
             
@@ -126,6 +127,7 @@ struct MyMenuEditView: View {
                         viewContext.delete(ingredient)
                     }
                     ingredients.remove(atOffsets: indexSet)
+                    ingredientAddedToList.remove(atOffsets: indexSet)  // <- Add this line
                     ingredients = ingredients.map { $0 }
                 }
                 
@@ -135,6 +137,7 @@ struct MyMenuEditView: View {
                     newIngredient.quantity = 0
                     newIngredient.unit = ""
                     ingredients.append(newIngredient)
+                    ingredientAddedToList.append(false)  // <- Add this line
                 }
             }
             
@@ -164,7 +167,12 @@ struct MyMenuEditView: View {
                         return !(ingredient.name ?? "").isEmpty
                     }
                     menu.ingredients = NSSet(array: filteredIngredients)
-                    
+                    if let ingredientSet = menu.ingredients as? Set<Ingredient> {
+                        for ingredient in ingredientSet {
+                            ingredient.servings = servings
+                        }
+                    }
+
                     for index in ingredients.indices where ingredientAddedToList[index] {
                         let newShopping = Shopping(context: viewContext)
                         newShopping.name = ingredients[index].name
@@ -204,6 +212,11 @@ struct MyMenuEditView: View {
                         return !(ingredient.name ?? "").isEmpty
                     }
                     menu.ingredients = NSSet(array: filteredIngredients)
+                    if let ingredientSet = menu.ingredients as? Set<Ingredient> {
+                        for ingredient in ingredientSet {
+                            ingredient.servings = servings
+                        }
+                    }
                     
                     for index in ingredients.indices where ingredientAddedToList[index] {
                         let newShopping = Shopping(context: viewContext)

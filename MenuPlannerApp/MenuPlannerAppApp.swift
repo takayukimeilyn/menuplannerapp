@@ -37,6 +37,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         UserDefaults(suiteName: "group.takayuki.hashimoto.menuplannerapp.batch")?.synchronize()
         PersistenceController.shared.loadDataAndSave()
+        
+        // 初回起動時にサンプルデータを生成
+        PersistenceController.shared.initializeSampleDataIfNeeded()
 
         return true
     }
@@ -108,4 +111,112 @@ extension PersistenceController {
         defaults?.removeObject(forKey: "sharedData")
         defaults?.synchronize()
     }
+    
+    func initializeSampleDataIfNeeded() {
+            let defaults = UserDefaults.standard
+            if !defaults.bool(forKey: "hasLaunchedBefore") {
+                // ここで初回起動時の処理（サンプルデータの作成など）を行う
+                createSampleMenus()
+                defaults.set(true, forKey: "hasLaunchedBefore")
+                defaults.synchronize()
+            }
+        }
+        
+    func createSampleMenus() {
+        let viewContext = self.container.viewContext
+        
+        // Sample1
+        let menu1 = MyMenu(context: viewContext)
+        menu1.name = "ごろごろ野菜のカレー"
+        menu1.mealTag = "主菜"
+        menu1.image = UIImage(named: "curry.jpg")?.pngData()
+
+        let ingredient1_1 = Ingredient(context: viewContext)
+        ingredient1_1.name = "じゃがいも"
+        ingredient1_1.unit = "3個"
+        ingredient1_1.servings = "2人前"
+        menu1.addToIngredients(ingredient1_1)
+
+        let ingredient1_2 = Ingredient(context: viewContext)
+        ingredient1_2.name = "にんじん"
+        ingredient1_2.unit = "2本"
+        ingredient1_2.servings = "2人前"
+        menu1.addToIngredients(ingredient1_2)
+
+        // Sample2
+        let menu2 = MyMenu(context: viewContext)
+        menu2.name = "昔懐かしオムライス"
+        menu2.mealTag = "主菜"
+        menu2.image = UIImage(named: "omurice.jpg")?.pngData()
+
+        let ingredient2_1 = Ingredient(context: viewContext)
+        ingredient2_1.name = "たまご"
+        ingredient2_1.unit = "4個"
+        ingredient2_1.servings = "5人前"
+        menu2.addToIngredients(ingredient2_1)
+        
+        let ingredient2_2 = Ingredient(context: viewContext)
+        ingredient2_2.name = "鶏胸肉"
+        ingredient2_2.unit = "100g"
+        ingredient2_2.servings = "5人前"
+        menu2.addToIngredients(ingredient2_2)
+        
+        // Sample3
+        let menu3 = MyMenu(context: viewContext)
+        menu3.name = "ボリューム満点ハンバーグ"
+        menu3.mealTag = "主菜"
+        menu3.image = UIImage(named: "humberg.jpg")?.pngData()
+
+        let ingredient3_1 = Ingredient(context: viewContext)
+        ingredient3_1.name = "ひき肉"
+        ingredient3_1.unit = "400g"
+        ingredient3_1.servings = "小さめ10個"
+        menu3.addToIngredients(ingredient3_1)
+        
+        // Add ingredient2_1 to ShoppingList
+        let newShoppingItem2_1 = Shopping(context: viewContext)
+        newShoppingItem2_1.name = ingredient2_1.name
+        newShoppingItem2_1.unit = ingredient2_1.unit
+        newShoppingItem2_1.ingredient = ingredient2_1
+        ingredient2_1.addToShopping(newShoppingItem2_1)
+        
+        let newShoppingItem1_1 = Shopping(context: viewContext)
+        newShoppingItem1_1.name = ingredient1_1.name
+        newShoppingItem1_1.unit = ingredient1_1.unit
+        newShoppingItem1_1.ingredient = ingredient1_1
+        ingredient1_1.addToShopping(newShoppingItem1_1)
+        
+        let newShoppingItem3_1 = Shopping(context: viewContext)
+        newShoppingItem3_1.name = ingredient3_1.name
+        newShoppingItem3_1.unit = ingredient3_1.unit
+        newShoppingItem3_1.ingredient = ingredient3_1
+        ingredient3_1.addToShopping(newShoppingItem3_1)
+        
+        // 献立に追加
+        let newMeal1 = Meal(context: viewContext)
+        newMeal1.date = Date()
+        newMeal1.mealTime = "夕食"
+        newMeal1.menuName = menu3.name
+        newMeal1.mealTag = menu3.mealTag
+        
+        let newMeal2 = Meal(context: viewContext)
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        newMeal2.date = tomorrow
+        newMeal2.mealTime = "昼食"
+        newMeal2.menuName = menu2.name
+        newMeal2.mealTag = menu2.mealTag
+        
+        let newMeal3 = Meal(context: viewContext)
+        newMeal3.date = tomorrow
+        newMeal3.mealTime = "夕食"
+        newMeal3.menuName = menu1.name
+        newMeal3.mealTag = menu1.mealTag
+
+        do {
+            try viewContext.save()
+        } catch {
+            print("Failed to save MyMenu: \(error)")
+        }
+    }
+
 }
