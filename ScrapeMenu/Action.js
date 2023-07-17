@@ -14,10 +14,16 @@ run: function(arguments) {
             data.units = [];
             for (let ingredient of json.recipeIngredient) {
                 let split = ingredient.split(' ');
-                data.ingredients.push(split[0]);
-                data.units.push(split.slice(1).join(' '));
+                let units = split.slice(1).join(' ');
+                if (units) { // Add this condition
+                    data.ingredients.push(split[0]);
+                    data.units.push(units);
+                }
             }
             data.images = json.image || [];
+            if (data.units.length === 0) { // If units are still empty after the loop, delete ingredients
+                delete data.ingredients;
+            }
             break;
         }
     }

@@ -31,6 +31,9 @@
 		4B51C21A2A4AAF7600C6EE14 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B51C2182A4AAF7500C6EE14 /* MainInterface.storyboard */; };
 		4B51C21E2A4AAF7600C6EE14 /* ScrapeMenu.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4B51C2102A4AAF7500C6EE14 /* ScrapeMenu.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4B51C2242A4AB0FC00C6EE14 /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 4B51C2232A4AB0FC00C6EE14 /* Action.js */; };
+		4BADC8EC2A62D8BC0022E757 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BADC8EB2A62D8BC0022E757 /* TutorialView.swift */; };
+		4BADC8EE2A62DAE70022E757 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BADC8ED2A62DAE70022E757 /* SettingsView.swift */; };
+		4BADC8F02A64B10F0022E757 /* InterstitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BADC8EF2A64B10F0022E757 /* InterstitialView.swift */; };
 		4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +90,9 @@
 		4B51C2232A4AB0FC00C6EE14 /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		4B51C2252A4ABDD600C6EE14 /* MenuPlannerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuPlannerApp.entitlements; sourceTree = "<group>"; };
 		4B51C2262A4AC47100C6EE14 /* ScrapeMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrapeMenu.entitlements; sourceTree = "<group>"; };
+		4BADC8EB2A62D8BC0022E757 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		4BADC8ED2A62DAE70022E757 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4BADC8EF2A64B10F0022E757 /* InterstitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialView.swift; sourceTree = "<group>"; };
 		4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalFood.swift; sourceTree = "<group>"; };
 		4BB0A8C72A3401B80089729F /* MenuPlannerApp 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MenuPlannerApp 2.xcdatamodel"; sourceTree = "<group>"; };
 		83CD481ACBA22D525615483B /* Pods_MenuPlannerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuPlannerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +156,9 @@
 				4B24EE112A21A0BB00ABB865 /* ShoppingListView.swift */,
 				4B0EBC042A23804A00B4CC63 /* ShoppingInputView.swift */,
 				4B0EBC062A2381C700B4CC63 /* ShoppingEditView.swift */,
+				4BADC8ED2A62DAE70022E757 /* SettingsView.swift */,
+				4BADC8EF2A64B10F0022E757 /* InterstitialView.swift */,
+				4BADC8EB2A62D8BC0022E757 /* TutorialView.swift */,
 				4BB0A88C2A2E1FCD0089729F /* SeasonalFood.swift */,
 				4B51C1EC2A4322CC00C6EE14 /* SwiftSoup.swift */,
 				4B24EDFA2A2103F400ABB865 /* Assets.xcassets */,
@@ -358,6 +367,7 @@
 				4B0EBC052A23804A00B4CC63 /* ShoppingInputView.swift in Sources */,
 				4B24EE162A21A4AD00ABB865 /* MenuPlanList.swift in Sources */,
 				4BB0A88D2A2E1FCD0089729F /* SeasonalFood.swift in Sources */,
+				4BADC8EE2A62DAE70022E757 /* SettingsView.swift in Sources */,
 				4B24EE1A2A22981300ABB865 /* EditView.swift in Sources */,
 				4B24EE002A2103F400ABB865 /* Persistence.swift in Sources */,
 				4B24EE182A228A9700ABB865 /* MyMenuEditView.swift in Sources */,
@@ -365,8 +375,10 @@
 				4B24EE0A2A21043C00ABB865 /* InputView.swift in Sources */,
 				4B24EDF92A2103F200ABB865 /* ContentView.swift in Sources */,
 				4B24EE0E2A21A07D00ABB865 /* MyMenuInputView.swift in Sources */,
+				4BADC8EC2A62D8BC0022E757 /* TutorialView.swift in Sources */,
 				4B24EDF72A2103F200ABB865 /* MenuPlannerAppApp.swift in Sources */,
 				4B24EE0C2A21A04E00ABB865 /* MyMenuListView.swift in Sources */,
+				4BADC8F02A64B10F0022E757 /* InterstitialView.swift in Sources */,
 				4B0EBC072A2381C700B4CC63 /* ShoppingEditView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,7 +536,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MenuPlannerApp/MenuPlannerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.10;
+				CURRENT_PROJECT_VERSION = 1.0.11;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -540,7 +552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.10;
+				MARKETING_VERSION = 1.0.11;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -561,7 +573,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MenuPlannerApp/MenuPlannerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.10;
+				CURRENT_PROJECT_VERSION = 1.0.11;
 				DEVELOPMENT_ASSET_PATHS = "\"MenuPlannerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y8DN4T44B;
 				ENABLE_PREVIEWS = YES;
@@ -577,7 +589,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.10;
+				MARKETING_VERSION = 1.0.11;
 				PRODUCT_BUNDLE_IDENTIFIER = takayuki.hashimoto.menuplannerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -15,28 +15,44 @@ struct SeasonalFood: Identifiable {
 struct SeasonalFoodsProvider {
     let januaryFish: [String] = ["鯛", "カキ","サワラ","ブリ"]
     let januaryVegetables: [String] = ["大根","れんこん","里芋","牛蒡","長芋","さつまいも"]
-    // ... repeat for all categories and months
 
-    let februaryFish: [String] = []
-    let februaryVegetables: [String] = []
+    let februaryFish: [String] = ["しらうお", "金目鯛","鯛"]
+    let februaryVegetables: [String] = ["カリフラワー","キャベツ","レンコン","みずな"]
     
-    let marchFish: [String] = []
-    let marchVegetables: [String] = []
+    let marchFish: [String] = ["しらうお", "さより","シラス","鯛"]
+    let marchVegetables: [String] = ["うど","かぶ","ニラ"]
     
-    let aprilFish: [String] = []
-    let aprilVegetables: [String] = []
+    let aprilFish: [String] = ["しらうお", "さより","シラス","鯛","メバル"]
+    let aprilVegetables: [String] = ["アスパラガス","グリーンピース","クレソン","さやえんどう"]
     
-    let mayFish: [String] = []
-    let mayVegetables: [String] = []
+    let mayFish: [String] = ["かつお", "いさき","シラス","あじ","メバル"]
+    let mayVegetables: [String] = ["アスパラガス","グリーンピース","クレソン","さやえんどう"]
 
     let juneFish: [String] = ["あじ","あゆ","いさき","かじき","カツオ","かます","かれい","カワハギ","キス","キビナゴ","スズキ","タチウオ","タコ","ワカメ"]
     let juneVegetables: [String] = ["オクラ","かぼちゃ","きゅうり","空芯菜","アスパラガス","グリーンピース","さやいんげん","しそ","そら豆","玉ねぎ","冬瓜","とうもろこし","トマト","ニラ","パプリカ","ピーマン","モロヘイヤ"]
+    
+    let julyFish: [String] = ["あじ","カンパチ","すずき"]
+    let julyVegetables: [String] = ["青唐辛子","明日葉","いんげん"]
+    
+    let augustFish: [String] = ["あじ","カジキマグロ","すずき"]
+    let augustVegetables: [String] = ["青唐辛子","明日葉","いんげん"]
+    
+    let septemberFish: [String] = ["シャケ","さんま"]
+    let septemberVegetables: [String] = ["青唐辛子","明日葉","いんげん"]
+    
+    let octorberFish: [String] = ["シャケ","さんま"]
+    let octorberVegetables: [String] = ["にんじん","松茸","みょうが"]
+    
+    let novemberFish: [String] = ["シャケ","さば"]
+    let novemberVegetables: [String] = ["えのき","銀杏","くわい"]
+    
+    let decemberFish: [String] = ["アンコウ","ぶり","たら"]
+    let decemberVegetables: [String] = ["みずな","小松菜"]
 
-    // ... continue for all months
 
     var foods: [SeasonalFood] {
-        let fishByMonth: [[String]] = [januaryFish, februaryFish,marchFish,aprilFish,mayFish,juneFish] // ... continue for all months
-        let vegetablesByMonth: [[String]] = [januaryVegetables, februaryVegetables,marchVegetables,aprilVegetables,mayVegetables,juneVegetables] // ... continue for all months
+        let fishByMonth: [[String]] = [januaryFish, februaryFish,marchFish,aprilFish,mayFish,juneFish,julyFish,augustFish,septemberFish,octorberFish,novemberFish,decemberFish]
+        let vegetablesByMonth: [[String]] = [januaryVegetables, februaryVegetables,marchVegetables,aprilVegetables,mayVegetables,juneVegetables,julyVegetables,augustVegetables,septemberVegetables,octorberVegetables,novemberVegetables,decemberVegetables]
 
         return fishByMonth.enumerated().flatMap { month, foods in
             foods.map { name in
@@ -52,18 +68,28 @@ struct SeasonalFoodsProvider {
 
 struct SeasonalFoodListView: View {
     let foods: [SeasonalFood]
+    @State private var selectedMonth: Int  // 選択されている月を管理するState
 
     init(provider: SeasonalFoodsProvider) {
         self.foods = provider.foods
+        let currentMonth = Calendar.current.component(.month, from: Date())  // 現在の月を取得
+        _selectedMonth = State(initialValue: currentMonth)  // Stateの初期値を現在の月に設定
     }
 
-
     var body: some View {
-        List {
-            ForEach(1...12, id: \.self) { month in
-                let foodsForMonth = foods.filter { $0.month == month }
+        VStack {
+            Picker("月選択", selection: $selectedMonth) {
+                ForEach(1...12, id: \.self) { month in
+                    Text("\(month)月").tag(month)
+                }
+            }
+//            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+
+            List {
+                let foodsForMonth = foods.filter { $0.month == selectedMonth }
                 if !foodsForMonth.isEmpty {
-                    Section(header: Text("\(month)月の旬の食材")) {
+                    Section(header: Text("\(selectedMonth)月の旬の食材")) {
                         ForEach(SeasonalFood.Category.allCases, id: \.self) { category in
                             let foodsForCategory = foodsForMonth.filter { $0.category == category }
                             if !foodsForCategory.isEmpty {
@@ -80,8 +106,9 @@ struct SeasonalFoodListView: View {
                     }
                 }
             }
+            .listStyle(InsetGroupedListStyle())
         }
-        .listStyle(InsetGroupedListStyle())
         .navigationTitle("旬の食材一覧")
     }
 }
+

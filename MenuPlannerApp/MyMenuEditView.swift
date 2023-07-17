@@ -31,10 +31,14 @@ struct MyMenuEditView: View {
         self._rating = State(initialValue: rating)
         self._imageData = State(initialValue: menu.image)
         self._mealTag = State(initialValue: menu.mealTag ?? "主菜")
-        let initialIngredients = (menu.ingredients?.allObjects as? [Ingredient]) ?? []
+        
+        // ingredientsをorder属性でソート
+        let initialIngredients = (menu.ingredients?.allObjects as? [Ingredient])?.sorted(by: { $0.order < $1.order }) ?? []
+        
         self._ingredients = State(initialValue: initialIngredients)
         self._ingredientAddedToList = State(initialValue: Array(repeating: false, count: initialIngredients.count))
     }
+
     
     var mealTags = ["主菜", "副菜", "主食", "汁物", "デザート", "その他"]
 

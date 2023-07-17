@@ -107,15 +107,3 @@ struct StarRatingView: View {
         }
     }
 }
-
-//class FetchedResultsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
-//    let didChangeContent: () -> Void
-//
-//    init(didChangeContent: @escaping () -> Void) {
-//        self.didChangeContent = didChangeContent
-//    }
-//
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        didChangeContent()
-//    }
-//}

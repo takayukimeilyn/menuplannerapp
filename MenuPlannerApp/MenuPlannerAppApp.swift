@@ -91,6 +91,7 @@ extension PersistenceController {
                     let newIngredient = Ingredient(context: viewContext)
                     newIngredient.name = ingredientName
                     newIngredient.unit = units[index]
+                    newIngredient.order = Int16(index)
                     newIngredient.servings = yield
                     newMenu.addToIngredients(newIngredient)
                 }
