@@ -310,7 +310,17 @@ struct MealTimeView: View {
             ForEach(meals, id: \.self) { meal in
                 NavigationLink(destination: EditView(meal: meal, mealsByDate: mealsByDate)) {
                     HStack {
-                        Text(emojiForMealTag(meal.mealTag ?? ""))
+                        if let imageData = meal.image, let originalImage = UIImage(data: imageData) {
+                            if let resizedImage = resizeImage(image: originalImage, targetSize: CGSize(width: 360, height: 360)) {
+                                Image(uiImage: resizedImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 40) // ここで幅は指定せず、高さのみを指定します
+                                    .clipped()
+                                    .cornerRadius(5)
+                            }
+                        }
+//                        Text(emojiForMealTag(meal.mealTag ?? ""))
                         Text(meal.menuName ?? "No menu")
                             .foregroundColor(Color.primary)
                     }
@@ -318,6 +328,17 @@ struct MealTimeView: View {
             }
             .onDelete(perform: deleteMeal)
         }
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: targetSize))
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = image
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 1.0)
+        imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
     }
 }
 

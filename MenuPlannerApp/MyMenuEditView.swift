@@ -21,16 +21,16 @@ struct MyMenuEditView: View {
     @State private var imageData: Data?
     @State private var showingInputView = false // <- Add this state variable
     @State private var ingredientAddedToList: [Bool]
-//    @State private var shoppingListChange: Bool = false
-    
+    @State private var resizedImage: UIImage?  // resizedImageをViewのプロパティにする
+
     @FetchRequest(
         entity: Shopping.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Shopping.name, ascending: true)]
     ) private var shoppingItems: FetchedResults<Shopping>
     
-    init(menu: MyMenu, rating: Int) {
+    init(menu: MyMenu) {
         self.menu = menu
-        self._rating = State(initialValue: rating)
+        self._rating = State(initialValue: Int(menu.rating))
         self._imageData = State(initialValue: menu.image)
         self._mealTag = State(initialValue: menu.mealTag ?? "主菜")
         
@@ -39,6 +39,9 @@ struct MyMenuEditView: View {
         
         self._ingredients = State(initialValue: initialIngredients)
         self._ingredientAddedToList = State(initialValue: Array(repeating: false, count: initialIngredients.count))
+        if let imageData = menu.image, let originalImage = UIImage(data: imageData) {
+            _resizedImage = State(initialValue: resizeImage(image: originalImage, targetSize: CGSize(width: 360, height: 360)))
+        }
     }
 
     
@@ -53,7 +56,7 @@ struct MyMenuEditView: View {
                             Image(uiImage: resizedImage)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 70) // ここで幅は指定せず、高さのみを指定します
+                                .frame(height: 60) // ここで幅は指定せず、高さのみを指定します
                                 .clipped()
                                 .cornerRadius(5)
                         }
@@ -184,6 +187,7 @@ struct MyMenuEditView: View {
         .navigationBarItems(trailing:
             HStack{
                 Button(action: {
+                    menu.image = resizedImage?.jpegData(compressionQuality: 1.0)
                     menu.name = menuName
                     menu.mealTag = mealTag
                     menu.rating = Int16(rating)
@@ -231,6 +235,7 @@ struct MyMenuEditView: View {
                 }
 
                 Button(action: {
+                    menu.image = resizedImage?.jpegData(compressionQuality: 1.0)
                     menu.name = menuName
                     menu.mealTag = mealTag
                     menu.rating = Int16(rating)

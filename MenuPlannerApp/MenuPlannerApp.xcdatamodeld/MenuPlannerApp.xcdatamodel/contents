@@ -15,6 +15,7 @@
     </entity>
     <entity name="Meal" representedClassName="Meal" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="mealTag" optional="YES" attributeType="String"/>
         <attribute name="mealTime" optional="YES" attributeType="String"/>
         <attribute name="menuName" optional="YES" attributeType="String"/>

@@ -120,6 +120,10 @@ struct InputView: View {
             newMeal.mealTag = selectedMenu.mealTag
             newMeal.menu = selectedMenu
             newMeal.menu?.referenceURL = selectedMenu.referenceURL
+            if let imageData = selectedMenu.image, let image = UIImage(data: imageData) {
+                let jpegData = image.jpegData(compressionQuality: 1.0)
+                newMeal.image = jpegData
+            }
         } else if !menuName.isEmpty {
             let existingMenu = myMenus.first(where: { $0.name == menuName })
             if let existingMenu = existingMenu {
@@ -127,6 +131,10 @@ struct InputView: View {
                 newMeal.menuName = existingMenu.name
                 newMeal.mealTag = existingMenu.mealTag
                 newMeal.menu = existingMenu
+                if let imageData = existingMenu.image, let image = UIImage(data: imageData) {
+                    let jpegData = image.jpegData(compressionQuality: 1.0)
+                    newMeal.image = jpegData
+                }
             } else {
                 // Create new MyMenu
                 let newMyMenu = MyMenu(context: viewContext)

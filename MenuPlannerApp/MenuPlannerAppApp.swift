@@ -137,6 +137,7 @@ extension PersistenceController {
         menu1.name = "ごろごろ野菜のカレー"
         menu1.mealTag = "主菜"
         menu1.image = UIImage(named: "curry.jpg")?.pngData()
+        menu1.rating = 5
 
         let ingredient1_1 = Ingredient(context: viewContext)
         ingredient1_1.name = "じゃがいも"
@@ -155,6 +156,8 @@ extension PersistenceController {
         menu2.name = "昔懐かしオムライス"
         menu2.mealTag = "主菜"
         menu2.image = UIImage(named: "omurice.jpg")?.pngData()
+        menu2.rating = 4
+
 
         let ingredient2_1 = Ingredient(context: viewContext)
         ingredient2_1.name = "たまご"
@@ -173,6 +176,8 @@ extension PersistenceController {
         menu3.name = "ボリューム満点ハンバーグ"
         menu3.mealTag = "主菜"
         menu3.image = UIImage(named: "humberg.jpg")?.pngData()
+        menu3.rating = 3
+
 
         let ingredient3_1 = Ingredient(context: viewContext)
         ingredient3_1.name = "ひき肉"
@@ -203,6 +208,7 @@ extension PersistenceController {
         let newMeal1 = Meal(context: viewContext)
         newMeal1.date = Date()
         newMeal1.mealTime = "夕食"
+        newMeal1.image = menu3.image
         newMeal1.menuName = menu3.name
         newMeal1.mealTag = menu3.mealTag
         
@@ -210,12 +216,14 @@ extension PersistenceController {
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         newMeal2.date = tomorrow
         newMeal2.mealTime = "昼食"
+        newMeal2.image = menu2.image
         newMeal2.menuName = menu2.name
         newMeal2.mealTag = menu2.mealTag
         
         let newMeal3 = Meal(context: viewContext)
         newMeal3.date = tomorrow
         newMeal3.mealTime = "夕食"
+        newMeal3.image = menu1.image
         newMeal3.menuName = menu1.name
         newMeal3.mealTag = menu1.mealTag
 
