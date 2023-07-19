@@ -26,7 +26,6 @@ struct MyMenuListView: View {
                     ForEach(myMenus.filter {
                         self.searchText.isEmpty ? true : $0.name!.contains(self.searchText)
                     }) { menu in
-                        HStack {
                             NavigationLink(destination: MyMenuEditView(menu: menu, rating: Int(menu.rating))) {
                                 HStack {
                                     if let imageData = menu.image, let originalImage = UIImage(data: imageData) {
@@ -39,12 +38,19 @@ struct MyMenuListView: View {
                                                 .cornerRadius(5)
                                         }
                                     }
-                                    Text(menu.name ?? "")
-//                                    Spacer()
-//                                    StarRatingView(rating: .constant(Int(menu.rating)))
+                                    VStack{
+                                        HStack{
+                                            Text(menu.name ?? "")
+                                            Spacer()
+                                        }
+                                        HStack{
+                                            StarRatingView(rating: .constant(Int(menu.rating)))
+                                                .font(.footnote)
+                                            Spacer()
+                                        }
+                                    }
                                 }
                             }
-                        }
                     }
                     .onDelete(perform: deleteMenu)
                 }

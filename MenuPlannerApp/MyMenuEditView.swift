@@ -12,6 +12,8 @@ struct MyMenuEditView: View {
     @State private var ingredients: [Ingredient]
     @State private var referenceURL = ""
     @State private var memo = ""
+    @State private var cookTime = ""
+    @State private var instruction = ""
     @State private var servings = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
@@ -51,12 +53,31 @@ struct MyMenuEditView: View {
                             Image(uiImage: resizedImage)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 100) // ここで幅は指定せず、高さのみを指定します
+                                .frame(height: 70) // ここで幅は指定せず、高さのみを指定します
                                 .clipped()
                                 .cornerRadius(5)
                         }
                     }
-                    TextField("メニュー名", text: $menuName)
+                    VStack{  // VStackにspacingパラメータを設定
+                        HStack{
+                            Text(menuName)
+                            Spacer()
+                        }
+                        if let url = menu.referenceURL, let host = url.host {
+                            HStack{
+                                Text("From")
+                                Link(destination: url) {
+                                    Text(host)
+                                }
+                                Link(destination: url) {
+                                    Image(systemName: "arrow.right.circle") // 囲った矢印アイコン
+                                }
+                                Spacer()
+                            }
+                            .font(.footnote) // アイコンのサイズを小さくします
+                        }
+                    }
+
                 }
                 Picker("種類", selection: $mealTag){
                     ForEach(mealTags, id: \.self) {
@@ -71,16 +92,18 @@ struct MyMenuEditView: View {
                 .pickerStyle(MenuPickerStyle())
             }
             
-            Section(header: Text("参考レシピサイト")) {
-                HStack{
-                    TextField("URL", text: $referenceURL)
-                    if let url = menu.referenceURL {
-                        Link(destination: url) {
-                            Image(systemName: "paperplane")
+            Section(header: Text("調理時間")) {
+                if !cookTime.isEmpty {
+                    TextField("調理時間", text: $cookTime)
+                        .onAppear {
+                            cookTime = cookTime.replacingOccurrences(of: "PT", with: "")
+                            cookTime = cookTime.replacingOccurrences(of: "M", with: "分")
                         }
-                    }
+                } else {
+                    TextField("何分？", text: $cookTime)
                 }
             }
+
             
             Section(header: Text("何人分")) {
                 if !ingredients.isEmpty {
@@ -145,6 +168,11 @@ struct MyMenuEditView: View {
                 }
             }
             
+            Section(header: Text("調理手順")) {
+                TextEditor(text: $instruction)
+                    .frame(height: 200) // ここで好みの高さを指定します
+            }
+
             Section(header: Text("メモ")) {
                 TextField("メモ", text: $memo)
             }
@@ -166,6 +194,8 @@ struct MyMenuEditView: View {
                         showingAlert = true
                         return
                     }
+                    menu.cookTime = cookTime
+                    menu.instruction = instruction
                     menu.memo = memo
                     let filteredIngredients = ingredients.filter { ingredient in
                         return !(ingredient.name ?? "").isEmpty
@@ -211,6 +241,8 @@ struct MyMenuEditView: View {
                         showingAlert = true
                         return
                     }
+                    menu.cookTime = cookTime
+                    menu.instruction = instruction
                     menu.memo = memo
                     let filteredIngredients = ingredients.filter { ingredient in
                         return !(ingredient.name ?? "").isEmpty
@@ -242,13 +274,12 @@ struct MyMenuEditView: View {
         )
         .onAppear {
             menuName = menu.name ?? ""
-//            mealTag = menu.mealTag ?? ""
             referenceURL = menu.referenceURL?.absoluteString ?? ""
             memo = menu.memo ?? ""
+            cookTime = menu.cookTime ?? ""
+            instruction = menu.instruction ?? ""
         }
-//        .onReceive(viewContext.didSavePublisher) { _ in
-//            shoppingListChange.toggle()
-//        }
+
     }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {

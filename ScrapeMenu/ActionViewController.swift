@@ -12,6 +12,8 @@ class ActionViewController: UIViewController {
     var pageUnits:[String]?
     var pageURL: String?
     var pageImages: [String]?
+    var pageInstructions: [String]?
+    var pageCookTime: String?
     
     // UI要素を追加
     let titleLabel = UILabel()
@@ -84,8 +86,8 @@ class ActionViewController: UIViewController {
                             self.pageUnits = javaScriptValues["units"] as? [String]
                             self.pageURL = javaScriptValues["url"] as? String
                             self.pageImages = javaScriptValues["images"] as? [String]
-
-                            
+                            self.pageInstructions = javaScriptValues["instructions"] as? [String]
+                            self.pageCookTime = javaScriptValues["cookTime"] as? String ?? ""
                             // UI要素にデータをセット
                             DispatchQueue.main.async {
                                 self.titleLabel.text = "メニュー名: \(self.pageTitle ?? "nil")"
@@ -103,8 +105,8 @@ class ActionViewController: UIViewController {
     }
 
     @IBAction func done() {
-        if let pageTitle = pageTitle, let pageYield = pageYield, let pageIngredients = pageIngredients, let pageUnits = pageUnits, let pageURL = pageURL, let pageImages = pageImages {
-                setSharedData(title: pageTitle, yield: pageYield, ingredients: pageIngredients, units: pageUnits, url: pageURL, images: pageImages)
+        if let pageTitle = pageTitle, let pageYield = pageYield, let pageIngredients = pageIngredients, let pageUnits = pageUnits, let pageURL = pageURL, let pageImages = pageImages, let pageInstructions = pageInstructions, let pageCookTime = pageCookTime {  // Add pageInstructions and pageCookTime here
+                setSharedData(title: pageTitle, yield: pageYield, ingredients: pageIngredients, units: pageUnits, url: pageURL, images: pageImages, instructions: pageInstructions, cookTime: pageCookTime)  // Add instructions and cookTime here
             }
             self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
     }
@@ -113,11 +115,11 @@ class ActionViewController: UIViewController {
         self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
     }
     
-    func setSharedData(title: String, yield: String, ingredients: [String], units: [String], url: String, images: [String]) {
+    func setSharedData(title: String, yield: String, ingredients: [String], units: [String], url: String, images: [String], instructions: [String], cookTime: String) {  // Add instructions and cookTime here
         let defaults = UserDefaults(suiteName: "group.takayuki.hashimoto.menuplannerapp.batch")
         
         // 共有するデータを辞書として保存
-        let dataDictionary: [String: Any] = ["title": title, "yield": yield, "ingredients": ingredients, "units": units, "url": url, "images": images]
+        let dataDictionary: [String: Any] = ["title": title, "yield": yield, "ingredients": ingredients, "units": units, "url": url, "images": images, "instructions": instructions, "cookTime": cookTime]  // Add instructions and cookTime here
         
         // 既存のデータを取得
         var sharedDataArray = defaults?.array(forKey: "sharedData") as? [[String: Any]] ?? []

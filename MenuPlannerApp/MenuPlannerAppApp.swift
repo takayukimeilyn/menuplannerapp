@@ -76,11 +76,15 @@ extension PersistenceController {
 
         for dataDictionary in sharedDataArray {
             guard let pageTitle = dataDictionary["title"] as? String,
-                let yield = dataDictionary["yield"] as? String,
-                let ingredients = dataDictionary["ingredients"] as? [String],
-                let units = dataDictionary["units"] as? [String],
-                let pageURL = dataDictionary["url"] as? String else { continue }
-            
+                  let yield = dataDictionary["yield"] as? String,
+                  let ingredients = dataDictionary["ingredients"] as? [String],
+                  let units = dataDictionary["units"] as? [String],
+                  let pageURL = dataDictionary["url"] as? String,
+                  let instructions = dataDictionary["instructions"] as? [String],  // Add instructions here
+                  let cookTime = dataDictionary["cookTime"] as? String  // Add cookTime here
+            else {
+                continue
+            }
                     
             let viewContext = self.container.viewContext
             let newMenu = MyMenu(context: viewContext)
@@ -94,6 +98,8 @@ extension PersistenceController {
                     newIngredient.order = Int16(index)
                     newIngredient.servings = yield
                     newMenu.addToIngredients(newIngredient)
+                    newMenu.instruction = instructions.joined(separator: "\n")  // Join array of strings into a single string with line breaks
+                    newMenu.cookTime = cookTime
                 }
             }
             if let imagesURLs = dataDictionary["images"] as? [String], let imageURL = imagesURLs.first, let url = URL(string: imageURL), let imageData = try? Data(contentsOf: url) {
