@@ -10,6 +10,11 @@
         <relationship name="myMenu" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MyMenu" inverseName="ingredients" inverseEntity="MyMenu"/>
         <relationship name="shopping" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Shopping" inverseName="ingredient" inverseEntity="Shopping"/>
     </entity>
+    <entity name="Instruction" representedClassName="Instruction" syncable="YES" codeGenerationType="class">
+        <attribute name="instruction" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="myMenu" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MyMenu" inverseName="instructions" inverseEntity="MyMenu"/>
+    </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
@@ -35,6 +40,7 @@
         <attribute name="referenceURL" optional="YES" attributeType="URI"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="myMenu" inverseEntity="Ingredient"/>
+        <relationship name="instructions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Instruction" inverseName="myMenu" inverseEntity="Instruction"/>
         <relationship name="meal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meal" inverseName="menu" inverseEntity="Meal"/>
     </entity>
     <entity name="Shopping" representedClassName="Shopping" syncable="YES" codeGenerationType="class">

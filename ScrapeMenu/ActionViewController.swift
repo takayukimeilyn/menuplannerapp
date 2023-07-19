@@ -2,7 +2,7 @@ import UIKit
 import MobileCoreServices
 import os.log
 import SwiftUI
-import WebKit  // 追加
+import WebKit
 
 class ActionViewController: UIViewController {
 
@@ -19,7 +19,9 @@ class ActionViewController: UIViewController {
     let titleLabel = UILabel()
     let yieldLabel = UILabel()
     let ingredientsLabel = UILabel()
-    let pageImageView = UIImageView()  // 新たに追加
+    let pageImageView = UIImageView()
+    let instructionsLabel = UILabel()
+
 
 
     override func viewDidLoad() {
@@ -62,6 +64,13 @@ class ActionViewController: UIViewController {
 //        ingredientsLabel.backgroundColor = .white
 //        ingredientsLabel.layer.cornerRadius = 5.0
         
+        instructionsLabel.frame = CGRect(x: 20, y: ingredientsLabel.frame.origin.y + ingredientsLabel.frame.size.height + spacing, width: self.view.frame.width - 40, height: 120)
+        instructionsLabel.backgroundColor = .systemBackground  //ダークモードとライトモードに対応
+        instructionsLabel.textColor = .label
+        instructionsLabel.numberOfLines = 0  //複数行表示を許可
+        
+        self.view.addSubview(instructionsLabel)  // ビューにinstructionsLabel
+        
         
         self.view.addSubview(titleLabel)
         self.view.addSubview(yieldLabel)
@@ -96,6 +105,8 @@ class ActionViewController: UIViewController {
                                 if let firstImageURL = self.pageImages?.first, let url = URL(string: firstImageURL), let data = try? Data(contentsOf: url) {
                                     self.pageImageView.image = UIImage(data: data)
                                 }
+                                self.instructionsLabel.text = "手順: \(self.pageInstructions?.joined(separator: ", ") ?? "nil")"  //新たに追加
+
                             }
                         }
                     })

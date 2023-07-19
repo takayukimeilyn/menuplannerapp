@@ -13,7 +13,7 @@ struct MyMenuEditView: View {
     @State private var referenceURL = ""
     @State private var memo = ""
     @State private var cookTime = ""
-    @State private var instruction = ""
+    @State private var instructions: [Instruction]
     @State private var servings = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
@@ -38,6 +38,9 @@ struct MyMenuEditView: View {
         let initialIngredients = (menu.ingredients?.allObjects as? [Ingredient])?.sorted(by: { $0.order < $1.order }) ?? []
         
         self._ingredients = State(initialValue: initialIngredients)
+        let initialInstructions = (menu.instructions?.allObjects as? [Instruction])?.sorted(by: { $0.order < $1.order }) ?? []
+
+        self._instructions = State(initialValue: initialInstructions)
         self._ingredientAddedToList = State(initialValue: Array(repeating: false, count: initialIngredients.count))
         if let imageData = menu.image, let originalImage = UIImage(data: imageData) {
             _resizedImage = State(initialValue: resizeImage(image: originalImage, targetSize: CGSize(width: 360, height: 360)))
@@ -172,8 +175,18 @@ struct MyMenuEditView: View {
             }
             
             Section(header: Text("調理手順")) {
-                TextEditor(text: $instruction)
-                    .frame(height: 200) // ここで好みの高さを指定します
+                ForEach(instructions.indices, id: \.self) { index in
+                    VStack(alignment: .leading) {
+                        Text("\(index+1).")
+                            .font(.headline)
+                        TextEditor(text: Binding(
+                            get: { instructions[index].instruction ?? "" },
+                            set: { instructions[index].instruction = $0 }
+                        ))
+                        .frame(minHeight: 80)  // adjust the height as needed
+//                        .border(Color.gray, width: 0.5)  // optional, for better visibility
+                    }
+                }
             }
 
             Section(header: Text("メモ")) {
@@ -199,7 +212,11 @@ struct MyMenuEditView: View {
                         return
                     }
                     menu.cookTime = cookTime
-                    menu.instruction = instruction
+//                    menu.instruction = instruction
+                    let filteredInstructions = instructions.filter { instruction in
+                        return !(instruction.instruction ?? "").isEmpty
+                    }
+                    menu.instructions = NSSet(array: filteredInstructions)
                     menu.memo = memo
                     let filteredIngredients = ingredients.filter { ingredient in
                         return !(ingredient.name ?? "").isEmpty
@@ -247,7 +264,11 @@ struct MyMenuEditView: View {
                         return
                     }
                     menu.cookTime = cookTime
-                    menu.instruction = instruction
+//                    menu.instruction = instruction
+                    let filteredInstructions = instructions.filter { instruction in
+                        return !(instruction.instruction ?? "").isEmpty
+                    }
+                    menu.instructions = NSSet(array: filteredInstructions)
                     menu.memo = memo
                     let filteredIngredients = ingredients.filter { ingredient in
                         return !(ingredient.name ?? "").isEmpty
@@ -282,7 +303,7 @@ struct MyMenuEditView: View {
             referenceURL = menu.referenceURL?.absoluteString ?? ""
             memo = menu.memo ?? ""
             cookTime = menu.cookTime ?? ""
-            instruction = menu.instruction ?? ""
+//            instructions = menu.instructions?.allObjects as? [Instruction] ?? []
         }
 
     }

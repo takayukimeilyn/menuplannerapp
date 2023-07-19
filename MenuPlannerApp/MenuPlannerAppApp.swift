@@ -98,10 +98,20 @@ extension PersistenceController {
                     newIngredient.order = Int16(index)
                     newIngredient.servings = yield
                     newMenu.addToIngredients(newIngredient)
-                    newMenu.instruction = instructions.joined(separator: "\n")  // Join array of strings into a single string with line breaks
-                    newMenu.cookTime = cookTime
+                    //                    newMenu.instruction = instructions.joined(separator: "\n")  // Join array of strings into a single string with line breaks
+                    
                 }
             }
+            for (index, instruction) in instructions.enumerated() {
+                if !instruction.isEmpty {
+                    let newInstruction = Instruction(context: viewContext)
+                    newInstruction.instruction = instruction
+                    newInstruction.order = Int16(index)
+                    newMenu.addToInstructions(newInstruction)  // Add instruction to MyMenu object
+                }
+            }
+            newMenu.cookTime = cookTime
+
             if let imagesURLs = dataDictionary["images"] as? [String], let imageURL = imagesURLs.first, let url = URL(string: imageURL), let imageData = try? Data(contentsOf: url) {
                 newMenu.image = imageData
             }
