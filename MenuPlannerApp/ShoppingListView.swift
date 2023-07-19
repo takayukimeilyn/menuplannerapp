@@ -9,13 +9,7 @@ struct ShoppingListView: View {
         entity: Shopping.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Shopping.order, ascending: true)]
     ) private var shoppings: FetchedResults<Shopping>
-    
-//    init() {
-//        // Start Google Mobile Ads
-//        GADMobileAds.sharedInstance().start(completionHandler: nil)
-//    }
-
-    
+     
     var body: some View {
         NavigationView {
             VStack{
@@ -34,7 +28,6 @@ struct ShoppingListView: View {
                                             print("Failed to update Shopping Item: \(error)")
                                         }
                                     }
-                                // Shopping name with strikethrough when checked
                                 Text(shopping.name ?? "")
                                     .strikethrough(shopping.isChecked, color: .gray)
                                     .foregroundColor(shopping.isChecked ? .gray : .primary)
@@ -44,11 +37,8 @@ struct ShoppingListView: View {
                         }
                     }
                     .onDelete(perform: deleteShopping)
-                    .onMove(perform: moveShopping) // Handles drag and drop feature
+                    .onMove(perform: moveShopping)
                 }
-                //            .navigationBarTitle("Shopping List")
-//                AdBannerView(adUnitID: "ca-app-pub-9878109464323588/1239258304") // Replace with your ad unit ID
-//                    .frame(height: 50)
             }
             .navigationBarItems(
                 leading: Button(action: {
@@ -58,7 +48,6 @@ struct ShoppingListView: View {
                                     Image(systemName: "trash")
                                     Text("チェック済削除")
                                 }
-
                             },
                 trailing:HStack{
                     NavigationLink(destination: ShoppingInputView()) {
@@ -69,9 +58,24 @@ struct ShoppingListView: View {
         }
     }
     
+    func getIngredient(name: String) -> Ingredient? {
+        let fetchRequest: NSFetchRequest<Ingredient> = Ingredient.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
+        do {
+            let ingredients = try viewContext.fetch(fetchRequest)
+            return ingredients.first
+        } catch {
+            print("Failed to fetch Ingredient: \(error)")
+            return nil
+        }
+    }
+
     private func deleteShopping(at offsets: IndexSet) {
         for index in offsets {
             let shopping = shoppings[index]
+            shopping.ingredient?.isInShoppingList = false
+            shopping.ingredient?.shopping = nil  // <-- Clear the inverse relationship
             viewContext.delete(shopping)
         }
 
@@ -81,9 +85,21 @@ struct ShoppingListView: View {
             print("Failed to delete Shopping Item: \(error)")
         }
     }
+
+    private func deleteAllCompleted() {
+        for shopping in shoppings where shopping.isChecked {
+            shopping.ingredient?.isInShoppingList = false
+            shopping.ingredient?.shopping = nil  // <-- Clear the inverse relationship
+            viewContext.delete(shopping)
+        }
+        do {
+            try viewContext.save()
+        } catch {
+            print("Failed to delete completed Shopping Items: \(error)")
+        }
+    }
     
     private func moveShopping(from source: IndexSet, to destination: Int) {
-        // Handles the logic for moving Shopping item.
         var revisedItems: [Shopping] = shoppings.map { $0 }
 
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -96,18 +112,6 @@ struct ShoppingListView: View {
             try viewContext.save()
         } catch {
             print("Failed to reorder Shopping Items: \(error)")
-        }
-    }
-    
-    private func deleteAllCompleted() {
-        for shopping in shoppings where shopping.isChecked {
-            viewContext.delete(shopping)
-        }
-        
-        do {
-            try viewContext.save()
-        } catch {
-            print("Failed to delete completed Shopping Items: \(error)")
         }
     }
 }
